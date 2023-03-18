@@ -21,14 +21,9 @@ export default function Work() {
 }
 
 Work.canvas = function Scene() {
-  const router = useRouter();
-  const { name } = router.query;
-
-  const work = store.works[name as string];
-
   return (
     <>
-      <WorkScene work={work} />
+      <WorkScene />
     </>
   );
 };

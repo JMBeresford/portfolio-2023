@@ -1,5 +1,5 @@
 precision highp float;
-#define MAX_STEPS 70
+#define MAX_STEPS 50
 #define SURFACE_DIST 0.001
 #define MAX_DIST 12.0
 #define START vec3(0.0)
@@ -123,7 +123,7 @@ float rayMarch(vec3 ro, vec3 rd) {
 
 vec3 getNormal(vec3 p) {
   float d = getDist(p);
-  vec2 e = vec2(0.0001, 0.0);
+  vec2 e = vec2(0.001, 0.0);
 
   float xD = getDist(p + e.xyy);
   float yD = getDist(p + e.yxy);
