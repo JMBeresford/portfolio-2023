@@ -114,7 +114,7 @@ export default function MetaBalls(props: Props) {
       <PerformanceMonitor
         bounds={fps => (fps > 90 ? [50, 90] : [50, 60])}
         flipflops={5}
-        onFallback={handleDecline}
+        // onFallback={handleDecline}
         ms={100}
         iterations={5}
         onIncline={handleIncline}
