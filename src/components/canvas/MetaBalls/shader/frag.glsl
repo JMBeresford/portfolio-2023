@@ -1,7 +1,7 @@
 precision highp float;
-#define MAX_STEPS 100
-#define SURFACE_DIST 0.00001
-#define MAX_DIST 50.0
+#define MAX_STEPS 70
+#define SURFACE_DIST 0.001
+#define MAX_DIST 12.0
 #define START vec3(0.0)
 #define S smoothstep
 

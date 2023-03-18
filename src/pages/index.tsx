@@ -1,7 +1,8 @@
-import { HomeScene } from "@/components/canvas/HomeScene";
-import { World } from "@/components/canvas/World";
+// import { HomeScene } from "@/components/canvas/HomeScene";
 import { Hero } from "@/components/dom/Hero";
-import { OrbitControls } from "@react-three/drei";
+import dynamic from "next/dynamic";
+
+const HomeScene = dynamic(() => import("@/components/canvas/HomeScene"), { ssr: false });
 
 export default function Page() {
   return (
@@ -13,14 +14,7 @@ export default function Page() {
 
 // Canvas components go here
 // It will receive same props as the Page component (from getStaticProps, etc.)
-Page.canvas = () => (
-  <>
-    {
-      <HomeScene />
-      /* <OrbitControls /> */
-    }
-  </>
-);
+Page.canvas = () => <>{<HomeScene />}</>;
 
 export async function getStaticProps() {
   return { props: { title: "John Beresford - Creative Developer" } };

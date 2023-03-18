@@ -1,5 +1,6 @@
 .navbar {
   width: max-content;
+  overflow: hidden;
   margin-left: auto;
   padding: 1rem 0;
 
@@ -9,6 +10,16 @@
 
     li {
       list-style: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+
+    ul {
+      justify-content: space-evenly;
+      gap: 1.5rem;
     }
   }
 }

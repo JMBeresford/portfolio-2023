@@ -3,13 +3,13 @@ import { WorkImages } from "./WorkImages";
 import { useMaxWidth } from "@/hooks/useMaxWidth";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { BufferGeometry, Group, Material, Mesh } from "three";
-import font from "@/assets/fonts/Montserrat-ExtraLight.ttf";
 import { World } from "../World";
 import { ThreeEvent, useFrame, useThree } from "@react-three/fiber";
 import { clamp, damp } from "three/src/math/MathUtils";
 import { Flex } from "@react-three/flex";
 
 export function WorkListScene() {
+  const font = "fonts/Montserrat-ExtraLight.ttf";
   const maxWidth = useMaxWidth();
   const camera = useThree(s => s.camera);
   const textRef = useRef<Mesh<BufferGeometry, Material>>();

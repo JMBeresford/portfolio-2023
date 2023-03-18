@@ -105,7 +105,7 @@ export default function MetaBalls(props: Props) {
           uSeeds={seeds}
           envMapIntensity={envMapIntensity}
           uEndOffsets={endOffsets}
-          uFov={fov}
+          uFov={size.width > 768 ? fov : 2.5}
           uSpeeds={speeds}
           uCount={count}
           uAO={AO}
@@ -113,6 +113,8 @@ export default function MetaBalls(props: Props) {
       </mesh>
       <PerformanceMonitor
         bounds={fps => (fps > 90 ? [50, 90] : [50, 60])}
+        flipflops={5}
+        onFallback={handleDecline}
         ms={100}
         iterations={5}
         onIncline={handleIncline}
