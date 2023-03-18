@@ -1,0 +1,19 @@
+.hero {
+  position: absolute;
+  bottom: 1rem;
+  color: rgba(255, 255, 255, 0);
+  pointer-events: none;
+  touch-action: none;
+
+  h1 {
+    text-transform: uppercase;
+    font-size: 5rem;
+    font-weight: 300;
+  }
+
+  h3 {
+    text-transform: lowercase;
+    font-weight: 200;
+    font-size: 1.5rem;
+  }
+}
