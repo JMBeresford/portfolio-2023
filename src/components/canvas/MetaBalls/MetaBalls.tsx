@@ -24,7 +24,7 @@ export default function MetaBalls(props: Props) {
   const endOffsets: number[] = useMemo(() => {
     const arr = [];
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < MAX_SPHERES; i++) {
       let x = randFloat(0.5, 1) * (Math.random() > 0.5 ? 1 : -1);
       let y = randFloat(0.5, 1) * (Math.random() > 0.5 ? 1 : -1);
       let z = randFloat(0.5, 1) * (Math.random() > 0.5 ? 1 : -1);
@@ -32,37 +32,37 @@ export default function MetaBalls(props: Props) {
     }
 
     return arr;
-  }, [count]);
+  }, []);
 
   const radii: number[] = useMemo(() => {
     const arr = [];
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < MAX_SPHERES; i++) {
       arr.push(randFloat(0.15, 0.225));
     }
 
     return arr;
-  }, [count]);
+  }, []);
 
   const seeds = useMemo(() => {
     const arr = [];
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < MAX_SPHERES; i++) {
       arr.push(randFloat(0, 100));
     }
 
     return arr;
-  }, [count]);
+  }, []);
 
   const speeds = useMemo(() => {
     const arr = [];
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < MAX_SPHERES; i++) {
       arr.push(randFloat(0.5, 1));
     }
 
     return arr;
-  }, [count]);
+  }, []);
 
   const handleIncline = useCallback(() => {
     if (AO === 0) {
