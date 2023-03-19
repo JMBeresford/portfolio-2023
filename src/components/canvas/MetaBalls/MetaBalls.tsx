@@ -1,19 +1,46 @@
-import { useState, useRef, useMemo, useCallback } from "react";
+import { useState, useRef, useMemo, useCallback, useLayoutEffect } from "react";
 import { useControls } from "leva";
 import { randFloat } from "three/src/math/MathUtils";
-import { useFrame, useThree } from "@react-three/fiber";
-import { BufferGeometry, Group, Material, Mesh, ShaderMaterial, Vector3 } from "three";
-import { MAX_SPHERES, MetaBallsMaterial } from "./shader";
-import { PerformanceMonitor } from "@react-three/drei";
+import { createPortal, useFrame, useThree } from "@react-three/fiber";
+import {
+  BufferGeometry,
+  Mesh,
+  PerspectiveCamera,
+  PlaneGeometry,
+  Scene,
+  ShaderMaterial,
+} from "three";
+import {
+  BaseIntersectionMetaBallsMaterial,
+  IntersectionMetaBallsMaterial,
+  MAX_SPHERES,
+  MetaBallsMaterial,
+} from "./shader";
+import { PerformanceMonitor, useFBO } from "@react-three/drei";
 
 type Props = {};
 
 export default function MetaBalls(props: Props) {
   const ref = useRef<Mesh<BufferGeometry, ShaderMaterial>>();
+  const lowResRef = useRef<Mesh<BufferGeometry, ShaderMaterial>>();
   const [count, setCount] = useState<number>(10);
   const [AO, setAO] = useState<number>(5);
-  const size = useThree(s => s.size);
+  const width = useThree(s => s.size.width);
+  const height = useThree(s => s.size.height);
+  const camera = useThree(s => s.camera);
   const envMap = useThree(s => s.scene.environment);
+  const lowResTarget = useFBO(width / 12, height / 12, {
+    depthBuffer: false,
+    generateMipmaps: false,
+  });
+
+  // useLayoutEffect(() => {
+  //   console.log("size changed", size);
+  //   if (lowResTarget && size.width && size.height) {
+  //     lowResTarget.setSize();
+  //     lowResTarget.viewport.set(0, 0, size.width / 12, size.height / 12);
+  //   }
+  // }, [size, lowResTarget]);
 
   const { envMapIntensity, mix, fov } = useControls("balls", {
     envMapIntensity: { value: 3, min: 0, max: 20, step: 0.01 },
@@ -64,6 +91,12 @@ export default function MetaBalls(props: Props) {
     return arr;
   }, []);
 
+  const lowResScene = useMemo(() => {
+    let scene = new Scene();
+
+    return scene;
+  }, []);
+
   const handleIncline = useCallback(() => {
     if (AO === 0) {
       setAO(5);
@@ -86,38 +119,67 @@ export default function MetaBalls(props: Props) {
     setAO(0);
   }, [count, AO]);
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock, gl }) => {
     if (ref.current) {
       ref.current.material.uniforms.uTime.value = clock.elapsedTime * 0.5;
     }
-  });
+
+    if (camera && lowResScene && lowResTarget) {
+      lowResRef.current.material.uniforms.uTime.value = clock.elapsedTime * 0.5;
+      gl.setRenderTarget(lowResTarget);
+      gl.render(lowResScene, camera);
+      gl.setRenderTarget(null);
+    }
+  }, 4);
 
   return (
     <>
+      {createPortal(
+        <mesh ref={lowResRef}>
+          <planeGeometry args={[2, 2]} />
+          {/**@ts-ignore*/}
+          <IntersectionMetaBallsMaterial
+            uResolution={[width / 12, height / 12]}
+            envMap={envMap}
+            uMix={mix}
+            uRadii={radii}
+            uSeeds={seeds}
+            // envMapIntensity={envMapIntensity}
+            uEndOffsets={endOffsets}
+            uFov={width > 768 ? fov : 2.5}
+            uSpeeds={speeds}
+            uCount={count}
+            // uAO={AO}
+          />
+        </mesh>,
+
+        lowResScene,
+      )}
       <mesh ref={ref} renderOrder={5}>
         <planeGeometry args={[2, 2]} />
         {/**@ts-ignore*/}
         <MetaBallsMaterial
-          uResolution={[size.width, size.height]}
+          uResolution={[width, height]}
           envMap={envMap}
           uMix={mix}
           uRadii={radii}
           uSeeds={seeds}
           envMapIntensity={envMapIntensity}
           uEndOffsets={endOffsets}
-          uFov={size.width > 768 ? fov : 2.5}
+          uFov={width > 768 ? fov : 2.5}
           uSpeeds={speeds}
           uCount={count}
           uAO={AO}
+          uLowRes={lowResTarget.texture}
         />
       </mesh>
       <PerformanceMonitor
-        bounds={fps => (fps > 90 ? [50, 90] : [50, 60])}
+        bounds={fps => (fps > 90 ? [50, 90] : [55, 60])}
         flipflops={5}
         onFallback={info => info.factor < 0.5 && handleDecline()}
         ms={100}
         iterations={5}
-        onIncline={handleIncline}
+        // onIncline={handleIncline}
         onDecline={handleDecline}
       />
     </>

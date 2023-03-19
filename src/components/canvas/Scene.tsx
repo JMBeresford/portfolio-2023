@@ -1,5 +1,5 @@
 import { Canvas, extend } from "@react-three/fiber";
-import { Preload, Stats } from "@react-three/drei";
+import { AdaptiveEvents, Preload, Stats } from "@react-three/drei";
 import { ACESFilmicToneMapping, CineonToneMapping, LinearEncoding } from "three";
 import MetaBalls from "./MetaBalls";
 import { Camera } from "./Camera";
@@ -14,7 +14,7 @@ export default function Scene({ children, ...props }) {
     <Canvas
       {...props}
       gl={{ antialias: false, toneMapping: CineonToneMapping }}
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       style={{
         pointerEvents: "none",
         touchAction: "none",
@@ -39,6 +39,7 @@ export default function Scene({ children, ...props }) {
           <Vignette offset={0.4} darkness={0.5} eskil={true} />
         </EffectComposer>
       </Suspense>
+      <AdaptiveEvents />
       <Preload all />
     </Canvas>
   );

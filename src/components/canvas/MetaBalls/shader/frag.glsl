@@ -1,11 +1,14 @@
 precision highp float;
-#define MAX_STEPS 50
-#define SURFACE_DIST 0.001
+#define MAX_STEPS 70
+#define SURFACE_DIST 0.00001
 #define MAX_DIST 12.0
 #define START vec3(0.0)
 #define S smoothstep
 
 uniform vec2 uResolution;
+#ifndef INTERSECTION_ONLY
+uniform sampler2D uLowRes;
+#endif
 uniform samplerCube envMap;
 uniform float uTime;
 uniform float envMapIntensity;
@@ -68,6 +71,10 @@ vec4 getSphere(int i) {
   p *= rotateY(uTime * 0.75 * speed);
 
   radius *= S(0.15, 1.0, distFromMidProgress);
+
+  #ifdef INTERSECTION_ONLY
+  radius = max(radius * 1.2, 0.065);
+  #endif
 
   return vec4(p, radius);
 }
@@ -146,6 +153,14 @@ void main() {
   uv *= uResolution.xy / uResolution.y;
   vec4 col = vec4(0.0);
 
+  #ifndef INTERSECTION_ONLY
+  vec4 intersected = texture2D(uLowRes, vUv);
+  if (intersected.r == 0.0) {
+    gl_FragColor = vec4(0.0);
+    return;
+  }
+  #endif
+
   // cam init
   vec3 ro = cameraPosition;
   mat3 cam = raymarchCamera(ro, vec3(0.0), vec3(0.0, 1.0, 0.0));
@@ -160,7 +175,12 @@ void main() {
 
   // lighting
   vec3 p = ro + rd * d;
-  vec4 light = vec4(getLight(p), 1.0);
+  vec4 light;
+  #ifdef INTERSECTION_ONLY
+  light = vec4(1.0);
+  #else
+  light = vec4(getLight(p), 1.0);
+  #endif
 
   col += light;
 

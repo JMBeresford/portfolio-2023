@@ -12,6 +12,7 @@ const BaseMetaBallsMaterial = shaderMaterial(
   {
     uResolution: new Vector2(),
     uTime: 0,
+    uLowRes: undefined,
     envMap: undefined,
     envMapIntensity: 1,
     uMix: 0.35,
@@ -32,8 +33,38 @@ const BaseMetaBallsMaterial = shaderMaterial(
   },
 );
 
-extend({ BaseMetaBallsMaterial });
+const BaseIntersectionMetaBallsMaterial = shaderMaterial(
+  {
+    uResolution: new Vector2(),
+    uTime: 0,
+    envMap: undefined,
+    envMapIntensity: 1,
+    uMix: 0.35,
+    uSeeds: undefined,
+    uEndOffsets: undefined,
+    uFov: 3,
+    uSpeeds: undefined,
+    uRadii: undefined,
+    uCount: 10,
+    uAO: 5,
+  },
+  vertexShader,
+  fragmentShader,
+  m => {
+    m.transparent = true;
+    m.defines = { MAX_SPHERES, INTERSECTION_ONLY: 1 };
+    m.toneMapped = true;
+  },
+);
+
+extend({ BaseMetaBallsMaterial, BaseIntersectionMetaBallsMaterial });
 
 const MetaBallsMaterial = animated("baseMetaBallsMaterial" as ElementType);
+const IntersectionMetaBallsMaterial = animated("baseIntersectionMetaBallsMaterial" as ElementType);
 
-export { MetaBallsMaterial, MAX_SPHERES };
+export {
+  MetaBallsMaterial,
+  IntersectionMetaBallsMaterial,
+  BaseIntersectionMetaBallsMaterial,
+  MAX_SPHERES,
+};
