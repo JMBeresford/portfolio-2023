@@ -29,25 +29,20 @@ export type Work = {
 };
 
 type Works = { [key: string]: Work };
-type ColorPairs = [string, string][]; // [color, color]
+type ColorPairs = string[][]; // [color, color]
 
 export const store: { works: Works; colorsDark: ColorPairs; colorsLight: ColorPairs } = {
   colorsDark: [
-    ["#ff0000", "#00c4ff"],
-    ["#36393b", "#c5bc8e"],
-    ["#170409", "#67917a"],
-    ["#d1c089", "#412e28"],
-    ["#bcdea5", "#574951"],
-    ["#eb7b59", "#cf4647"],
-    ["#29221f", "#13747d"],
-    ["#d700ff", "#00aaff"],
-    ["#c5b89f", "#450b1e"],
-    ["#0aabba", "#fe0557"],
-    ["#e35b5d", "#f18052"],
-    ["#28007f", "#8f0000"],
-    ["#cdb380", "#031634"],
-    ["#0f4571", "#05d3f8"],
-    ["#de4126", "#b0254f"],
+    ["#9e1e4c", "#ff1168", "#25020f", "#8f8f8f", "#ececec"],
+    ["#130912", "#3e1c33", "#602749", "#b14623", "#f6921d"],
+    ["#f3dcb2", "#facb97", "#f59982", "#ed616f", "#f2116c"],
+    ["#368986", "#e79a32", "#f84339", "#d40f60", "#005c81"],
+    ["#85847e", "#ab6a6e", "#f7345b", "#353130", "#cbcfb4"],
+    ["#27191c", "#2d3839", "#114d4d", "#6e9987", "#e0e4ce"],
+    ["#ff3366", "#c74066", "#8f4d65", "#575a65", "#1f6764"],
+    ["#efd9b4", "#d6a692", "#a39081", "#4d6160", "#292522"],
+    ["#ffedbf", "#f7803c", "#f54828", "#2e0d23", "#f8e4c1"],
+    ["#c5f7f0", "#a9c2c9", "#8e8ca3", "#72577c", "#562155"],
   ],
   colorsLight: [
     ["#ece5ce", "#f1d4af"],

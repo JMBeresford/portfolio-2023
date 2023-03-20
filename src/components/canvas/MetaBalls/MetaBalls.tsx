@@ -1,7 +1,8 @@
 import { useState, useRef, useMemo, useCallback, useLayoutEffect } from "react";
 import { useControls } from "leva";
-import { randFloat } from "three/src/math/MathUtils";
-import { createPortal, useFrame, useThree } from "@react-three/fiber";
+import { damp, randFloat } from "three/src/math/MathUtils";
+import { useSpring } from "@react-spring/three";
+import { ThreeEvent, createPortal, useFrame, useThree } from "@react-three/fiber";
 import {
   BufferGeometry,
   Mesh,
@@ -16,7 +17,7 @@ import {
   MAX_SPHERES,
   MetaBallsMaterial,
 } from "./shader";
-import { PerformanceMonitor, useFBO } from "@react-three/drei";
+import { PerformanceMonitor, meshBounds, useFBO } from "@react-three/drei";
 
 type Props = {};
 
@@ -35,19 +36,33 @@ export default function MetaBalls(props: Props) {
     generateMipmaps: false,
   });
 
-  const { envMapIntensity, mix, fov } = useControls("balls", {
+  const { envMapIntensity, mix, fov, mouseRadius } = useControls("balls", {
     envMapIntensity: { value: 3, min: 0, max: 20, step: 0.01 },
-    mix: { value: 0.67, min: 0, max: 2, step: 0.01 },
+    mix: { value: 0.33, min: 0, max: 2, step: 0.01 },
     fov: { value: 3, min: 0, max: 10, step: 0.01 },
+    mouseRadius: { value: 1, min: 0, max: 2, step: 0.01 },
   });
 
-  const endOffsets: number[] = useMemo(() => {
+  const endPositions: number[] = useMemo(() => {
     const arr = [];
 
     for (let i = 0; i < MAX_SPHERES; i++) {
-      let x = randFloat(0.5, 1.75) * (Math.random() > 0.5 ? 1 : -1);
-      let y = randFloat(0.5, 1.75) * (Math.random() > 0.5 ? 1 : -1);
-      let z = randFloat(0.5, 1.75) * (Math.random() > 0.5 ? 1 : -1);
+      let x = randFloat(0.5, 2) * (Math.random() > 0.5 ? 1 : -1);
+      let y = randFloat(0.5, 2) * (Math.random() > 0.5 ? 1 : -1);
+      let z = randFloat(0.5, 2) * (Math.random() > 0.5 ? 1 : -1);
+      arr.push(x, y, z);
+    }
+
+    return arr;
+  }, []);
+
+  const startPositions: number[] = useMemo(() => {
+    const arr = [];
+
+    for (let i = 0; i < MAX_SPHERES; i++) {
+      let x = randFloat(0.1, 0.2) * (Math.random() > 0.5 ? 1 : -1);
+      let y = randFloat(0.1, 0.2) * (Math.random() > 0.5 ? 1 : -1);
+      let z = randFloat(0.1, 0.2) * (Math.random() > 0.5 ? 1 : -1);
       arr.push(x, y, z);
     }
 
@@ -58,7 +73,7 @@ export default function MetaBalls(props: Props) {
     const arr = [];
 
     for (let i = 0; i < MAX_SPHERES; i++) {
-      arr.push(randFloat(0.15, 0.225));
+      arr.push(randFloat(0.3, 0.5));
     }
 
     return arr;
@@ -78,7 +93,7 @@ export default function MetaBalls(props: Props) {
     const arr = [];
 
     for (let i = 0; i < MAX_SPHERES; i++) {
-      arr.push(randFloat(0.5, 1));
+      arr.push(randFloat(0.25, 1));
     }
 
     return arr;
@@ -117,9 +132,33 @@ export default function MetaBalls(props: Props) {
     setAO(0);
   }, [count, AO, surfaceThreshold]);
 
-  useFrame(({ clock, gl }) => {
-    if (ref.current) {
+  useFrame(({ clock, gl, mouse }, delta) => {
+    if (ref.current && lowResRef.current) {
       ref.current.material.uniforms.uTime.value = clock.elapsedTime * 0.5;
+      ref.current.material.uniforms.uMouse.value.x = damp(
+        ref.current.material.uniforms.uMouse.value.x,
+        mouse.x,
+        4,
+        delta,
+      );
+      ref.current.material.uniforms.uMouse.value.y = damp(
+        ref.current.material.uniforms.uMouse.value.y,
+        mouse.y,
+        4,
+        delta,
+      );
+      lowResRef.current.material.uniforms.uMouse.value.x = damp(
+        lowResRef.current.material.uniforms.uMouse.value.x,
+        mouse.x,
+        4,
+        delta,
+      );
+      lowResRef.current.material.uniforms.uMouse.value.y = damp(
+        lowResRef.current.material.uniforms.uMouse.value.y,
+        mouse.y,
+        4,
+        delta,
+      );
     }
 
     if (camera && lowResScene && lowResTarget) {
@@ -143,10 +182,12 @@ export default function MetaBalls(props: Props) {
             uRadii={radii}
             uSeeds={seeds}
             // envMapIntensity={envMapIntensity}
-            uEndOffsets={endOffsets}
+            uEndPositions={endPositions}
+            uStartPositions={startPositions}
             uFov={width > 768 ? fov : 2.5}
             uSpeeds={speeds}
             uCount={count}
+            uMouseRadius={mouseRadius}
             // uAO={AO}
           />
         </mesh>,
@@ -164,12 +205,14 @@ export default function MetaBalls(props: Props) {
           uRadii={radii}
           uSeeds={seeds}
           envMapIntensity={envMapIntensity}
-          uEndOffsets={endOffsets}
+          uEndPositions={endPositions}
+          uStartPositions={startPositions}
           uFov={width > 768 ? fov : 2.5}
           uSpeeds={speeds}
           uCount={count}
           uAO={AO}
           uLowRes={lowResTarget.texture}
+          uMouseRadius={mouseRadius}
         />
       </mesh>
       <PerformanceMonitor
@@ -178,7 +221,7 @@ export default function MetaBalls(props: Props) {
         onFallback={info => info.factor < 0.5 && handleDecline()}
         ms={100}
         iterations={5}
-        // onIncline={handleIncline}
+        onIncline={handleIncline}
         onDecline={handleDecline}
       />
     </>
