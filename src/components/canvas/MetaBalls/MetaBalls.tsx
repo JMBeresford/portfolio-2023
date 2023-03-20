@@ -23,8 +23,9 @@ type Props = {};
 export default function MetaBalls(props: Props) {
   const ref = useRef<Mesh<BufferGeometry, ShaderMaterial>>();
   const lowResRef = useRef<Mesh<BufferGeometry, ShaderMaterial>>();
-  const [count, setCount] = useState<number>(10);
+  const [count, setCount] = useState<number>(MAX_SPHERES);
   const [AO, setAO] = useState<number>(5);
+  const [surfaceThreshold, setSurfaceThreshold] = useState<number>(0.005);
   const width = useThree(s => s.size.width);
   const height = useThree(s => s.size.height);
   const camera = useThree(s => s.camera);
@@ -33,14 +34,6 @@ export default function MetaBalls(props: Props) {
     depthBuffer: false,
     generateMipmaps: false,
   });
-
-  // useLayoutEffect(() => {
-  //   console.log("size changed", size);
-  //   if (lowResTarget && size.width && size.height) {
-  //     lowResTarget.setSize();
-  //     lowResTarget.viewport.set(0, 0, size.width / 12, size.height / 12);
-  //   }
-  // }, [size, lowResTarget]);
 
   const { envMapIntensity, mix, fov } = useControls("balls", {
     envMapIntensity: { value: 3, min: 0, max: 20, step: 0.01 },
@@ -52,9 +45,9 @@ export default function MetaBalls(props: Props) {
     const arr = [];
 
     for (let i = 0; i < MAX_SPHERES; i++) {
-      let x = randFloat(0.5, 1) * (Math.random() > 0.5 ? 1 : -1);
-      let y = randFloat(0.5, 1) * (Math.random() > 0.5 ? 1 : -1);
-      let z = randFloat(0.5, 1) * (Math.random() > 0.5 ? 1 : -1);
+      let x = randFloat(0.5, 1.75) * (Math.random() > 0.5 ? 1 : -1);
+      let y = randFloat(0.5, 1.75) * (Math.random() > 0.5 ? 1 : -1);
+      let z = randFloat(0.5, 1.75) * (Math.random() > 0.5 ? 1 : -1);
       arr.push(x, y, z);
     }
 
@@ -109,6 +102,12 @@ export default function MetaBalls(props: Props) {
   }, [count, AO]);
 
   const handleDecline = useCallback(() => {
+    console.log("declined");
+    if (surfaceThreshold < 0.02) {
+      setSurfaceThreshold(p => p + 0.005);
+      return;
+    }
+
     if (count > 0) {
       setCount(p => Math.max(p - 3, 0));
       return;
@@ -117,7 +116,7 @@ export default function MetaBalls(props: Props) {
     if (AO === 0) return;
 
     setAO(0);
-  }, [count, AO]);
+  }, [count, AO, surfaceThreshold]);
 
   useFrame(({ clock, gl }) => {
     if (ref.current) {
@@ -162,6 +161,7 @@ export default function MetaBalls(props: Props) {
           uResolution={[width, height]}
           envMap={envMap}
           uMix={mix}
+          uSurfaceThreshold={surfaceThreshold}
           uRadii={radii}
           uSeeds={seeds}
           envMapIntensity={envMapIntensity}

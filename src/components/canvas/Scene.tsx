@@ -27,13 +27,13 @@ export default function Scene({ children, ...props }) {
         height: "90%",
         maxHeight: "90%",
       }}
-      camera={null}
+      camera={{ position: [0, 0, 5], near: 0.0001, far: 100 }}
     >
       {children}
-      <MetaBalls />
-      <Camera />
       <Stats />
       <Suspense fallback={null}>
+        <MetaBalls />
+        <Camera />
         <EffectComposer multisampling={0} disableNormalPass>
           <SMAA />
           <Vignette offset={0.4} darkness={0.5} eskil={true} />

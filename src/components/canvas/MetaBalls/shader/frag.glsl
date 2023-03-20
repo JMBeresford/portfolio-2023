@@ -1,9 +1,7 @@
 precision highp float;
-#define MAX_STEPS 70
-#define SURFACE_DIST 0.00001
-#define MAX_DIST 12.0
-#define START vec3(0.0)
-#define S smoothstep
+#define MAX_STEPS (100)
+#define MAX_DIST (12.0)
+#define START (vec3(0.0))
 
 uniform vec2 uResolution;
 #ifndef INTERSECTION_ONLY
@@ -11,6 +9,7 @@ uniform sampler2D uLowRes;
 #endif
 uniform samplerCube envMap;
 uniform float uTime;
+uniform float uSurfaceThreshold;
 uniform float envMapIntensity;
 uniform float uFov;
 uniform float uMix;
@@ -57,34 +56,32 @@ float smin(float a, float b) {
 }
 
 vec4 getSphere(int i) {
-  float radius = uRadii[i];
+  float radius = max(uRadii[i], 0.15);
   float seed = uSeeds[i];
   float speed = uSpeeds[i];
   vec3 end = uEndOffsets[i];
 
-  end *= 1.0 + S(1.0, 0.0, radius) * 2.0;
-
   float progress = fract((uTime + seed) * 0.1 * speed);
-  float distFromMidProgress = 1.0 - (distance(0.5, progress) * 2.0);
+  float distFromMidProgress = 1.0 - distance(0.5, progress) * 2.0;
 
   vec3 p = mix(START, end, progress);
   p *= rotateY(uTime * 0.75 * speed);
 
-  radius *= S(0.15, 1.0, distFromMidProgress);
+  radius *= smoothstep(0.15, 1.0, distFromMidProgress);
 
   #ifdef INTERSECTION_ONLY
   radius = max(radius * 1.2, 0.065);
+  #else
+  radius *= smoothstep(0.2, 0.3, distance(p, cameraPosition));
   #endif
 
   return vec4(p, radius);
 }
 
 float getDist(vec3 p) {
-  float d = MAX_DIST;
-
   vec4 mainSphere = vec4(0.0, 0.0, 0.0, 0.75);
   float dm = length(p - mainSphere.xyz) - mainSphere.w;
-  d = smin(d, dm);
+  float d = dm;
 
   for (int i = 0; i < uCount; i++) {
     vec4 sphere = getSphere(i);
@@ -99,13 +96,12 @@ float raymarchAO(vec3 pos, vec3 normal) {
   float occ = 0.0;
   float sca = 0.75;
   for (int i = 0; i < uAO; i++) {
-    float hr = 0.01 + 0.12 * float(i) / 5.0;
+    float hr = 0.01 + 0.12 * float(i) / float(uAO);
     vec3 aopos = pos + normal * hr;
     float dd = getDist(aopos);
     occ += (hr - dd) * sca;
     sca *= 0.95;
-    if (occ > 0.35)
-      break;
+    if (occ > 0.35) break;
   }
 
   return clamp(1.0 - 3.0 * occ, 0.0, 1.0) / envMapIntensity;
@@ -117,7 +113,11 @@ float rayMarch(vec3 ro, vec3 rd) {
     vec3 p = ro + rd * d0;
     float dS = getDist(p);
     d0 += dS;
-    if (dS < SURFACE_DIST) {
+    float threshold = uSurfaceThreshold;
+    #ifdef INTERSECTION_ONLY
+    threshold = 0.005;
+    #endif
+    if (dS < threshold) {
       break;
     }
 

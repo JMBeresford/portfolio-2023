@@ -12,6 +12,7 @@ const BaseMetaBallsMaterial = shaderMaterial(
   {
     uResolution: new Vector2(),
     uTime: 0,
+    uSurfaceThreshold: 0.01,
     uLowRes: undefined,
     envMap: undefined,
     envMapIntensity: 1,
