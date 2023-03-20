@@ -102,7 +102,6 @@ export default function MetaBalls(props: Props) {
   }, [count, AO]);
 
   const handleDecline = useCallback(() => {
-    console.log("declined");
     if (surfaceThreshold < 0.02) {
       setSurfaceThreshold(p => p + 0.005);
       return;
