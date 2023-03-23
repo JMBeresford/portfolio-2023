@@ -1,8 +1,65 @@
+$text-size: 1rem;
+$height: $text-size * 1.85;
+
 .navbar {
-  width: max-content;
+  position: relative;
+  width: 100%;
   overflow: hidden;
-  margin-left: auto;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
+  color: inherit;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .switch {
+    cursor: pointer;
+    display: flex;
+    height: $height;
+    width: $height;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+
+    &.light {
+      .icon {
+        transform: translateY(-100%);
+
+        &:first-of-type {
+          opacity: 0;
+        }
+
+        &:nth-of-type(2) {
+          opacity: 1;
+        }
+      }
+    }
+
+    .icon {
+      transform: translateY(0);
+      transition: transform 0.5s ease-in-out, opacity 0.35s ease-in-out;
+
+      height: $height;
+      width: $height;
+      display: grid;
+      place-items: center;
+
+      &:first-of-type {
+        opacity: 1;
+        svg {
+          height: 100%;
+        }
+      }
+
+      &:nth-of-type(2) {
+        padding: 0.15rem;
+        opacity: 0;
+        svg {
+          height: 100%;
+        }
+      }
+    }
+  }
 
   ul {
     display: flex;
@@ -10,6 +67,7 @@
 
     li {
       list-style: none;
+      font-size: $text-size;
     }
   }
 

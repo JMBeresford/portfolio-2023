@@ -16,6 +16,7 @@
     "@react-three/postprocessing": "^2.7.0",
     "glsl-noise": "^0.0.0",
     "glsl-random": "^0.0.5",
+    "gsap": "^3.11.5",
     "leva": "^0.9.34",
     "next": "^13.1.6",
     "next-pwa": "^5.6.0",
@@ -25,7 +26,8 @@
     "react-dom": "^18.2.0",
     "sass": "^1.59.2",
     "three": "^0.149.0",
-    "three-stdlib": "^2.21.6"
+    "three-stdlib": "^2.21.6",
+    "zustand": "^4.3.6"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^13.1.6",

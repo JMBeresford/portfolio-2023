@@ -1,22 +1,9 @@
 import { useState, useRef, useMemo, useCallback, useLayoutEffect } from "react";
 import { useControls } from "leva";
 import { damp, randFloat } from "three/src/math/MathUtils";
-import { useSpring } from "@react-spring/three";
-import { ThreeEvent, createPortal, useFrame, useThree } from "@react-three/fiber";
-import {
-  BufferGeometry,
-  Mesh,
-  PerspectiveCamera,
-  PlaneGeometry,
-  Scene,
-  ShaderMaterial,
-} from "three";
-import {
-  BaseIntersectionMetaBallsMaterial,
-  IntersectionMetaBallsMaterial,
-  MAX_SPHERES,
-  MetaBallsMaterial,
-} from "./shader";
+import { createPortal, useFrame, useThree } from "@react-three/fiber";
+import { BufferGeometry, Mesh, Scene, ShaderMaterial } from "three";
+import { IntersectionMetaBallsMaterial, MAX_SPHERES, MetaBallsMaterial } from "./shader";
 import { PerformanceMonitor, meshBounds, useFBO } from "@react-three/drei";
 
 type Props = {};
@@ -33,14 +20,14 @@ export default function MetaBalls(props: Props) {
   const envMap = useThree(s => s.scene.environment);
   const lowResTarget = useFBO(width / 12, height / 12, {
     depthBuffer: false,
-    generateMipmaps: false,
+    // generateMipmaps: false,
   });
 
   const { envMapIntensity, mix, fov, mouseRadius } = useControls("balls", {
     envMapIntensity: { value: 3, min: 0, max: 20, step: 0.01 },
     mix: { value: 0.33, min: 0, max: 2, step: 0.01 },
     fov: { value: 3, min: 0, max: 10, step: 0.01 },
-    mouseRadius: { value: 1, min: 0, max: 2, step: 0.01 },
+    mouseRadius: { value: 0.35, min: 0, max: 2, step: 0.01 },
   });
 
   const endPositions: number[] = useMemo(() => {
@@ -122,7 +109,7 @@ export default function MetaBalls(props: Props) {
       return;
     }
 
-    if (count > 0) {
+    if (count > 2) {
       setCount(p => Math.max(p - 3, 0));
       return;
     }
@@ -134,29 +121,30 @@ export default function MetaBalls(props: Props) {
 
   useFrame(({ clock, gl, mouse }, delta) => {
     if (ref.current && lowResRef.current) {
+      const lambda = 1;
       ref.current.material.uniforms.uTime.value = clock.elapsedTime * 0.5;
       ref.current.material.uniforms.uMouse.value.x = damp(
         ref.current.material.uniforms.uMouse.value.x,
         mouse.x,
-        4,
+        lambda,
         delta,
       );
       ref.current.material.uniforms.uMouse.value.y = damp(
         ref.current.material.uniforms.uMouse.value.y,
         mouse.y,
-        4,
+        lambda,
         delta,
       );
       lowResRef.current.material.uniforms.uMouse.value.x = damp(
         lowResRef.current.material.uniforms.uMouse.value.x,
         mouse.x,
-        4,
+        lambda,
         delta,
       );
       lowResRef.current.material.uniforms.uMouse.value.y = damp(
         lowResRef.current.material.uniforms.uMouse.value.y,
         mouse.y,
-        4,
+        lambda,
         delta,
       );
     }

@@ -1,16 +1,14 @@
 .workdetails {
+  padding-top: 2rem;
   a {
-    color: rgba(255, 255, 255, 0.8);
+    opacity: 0.8;
   }
 
-  color: rgba(255, 255, 255, 0.8);
-
   h1 {
-    color: rgba(255, 255, 255, 0.6);
     font-size: clamp(3rem, 2.75rem + 2.45vw, 7.5rem);
     font-weight: 400;
     text-transform: uppercase;
-    margin: 1.75rem 0;
+    margin-bottom: 1.75rem;
 
     animation: fade-in 0.5s ease-in-out backwards 0.25s;
   }
@@ -20,7 +18,7 @@
 
     h1,
     a {
-      color: rgba(255, 255, 255, 1);
+      opacity: 1;
     }
   }
 
@@ -32,7 +30,7 @@
     animation: fade-in 0.5s ease-in-out backwards 0.75s;
 
     h3 {
-      color: rgba(255, 255, 255, 0.8);
+      opacity: 0.8;
       font-size: 2rem;
       font-weight: 500;
       text-transform: uppercase;
@@ -43,7 +41,20 @@
       // text-transform: uppercase;
       // font-family: "Poppins", sans-serif;
       font-weight: 300;
-      color: white;
+    }
+
+    &.light {
+      .left .links button {
+        background-color: rgba(0, 0, 0, 0.35);
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        a {
+          color: rgba(255, 255, 255, 0.9);
+        }
+      }
     }
 
     .left {
@@ -55,33 +66,37 @@
       a {
         letter-spacing: 0.02em;
         font-size: 1.2rem;
+        text-transform: none;
+        font-weight: 300;
+        font-family: "montserrat", sans-serif;
       }
 
       .links {
-        margin-top: 0.8rem;
+        margin-top: 1rem;
         display: flex;
         justify-content: space-between;
         gap: 1.25rem;
 
         button {
           cursor: pointer;
-          border-radius: 10px;
+          border-radius: 5px;
           display: grid;
           place-items: center;
           border: none;
           width: 100%;
           padding: 0.35rem 0.75rem;
-          background-color: white;
+          background-color: rgba(255, 255, 255, 0.6);
 
           transition: background-color 0.25s ease-out;
 
           &:hover {
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.9);
           }
         }
 
         a {
           color: black;
+          letter-spacing: 1px;
 
           &::before {
             display: none;
@@ -98,34 +113,11 @@
         font-size: 1rem;
         white-space: break-spaces;
       }
-
-      &::before {
-        content: "";
-        position: absolute;
-        border-radius: 6px;
-        inset: -1rem;
-        z-index: -1;
-        background-color: rgba(0, 0, 0, 0.5);
-        opacity: 0;
-
-        transition: opacity 0.25s ease-in-out;
-      }
-
-      &:hover {
-        &::before {
-          opacity: 1;
-        }
-      }
     }
 
     @media (max-width: 768px) {
       display: flex;
       flex-direction: column;
-
-      h3,
-      p {
-        color: rgba(255, 255, 255, 1);
-      }
 
       .right {
         p {

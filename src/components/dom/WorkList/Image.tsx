@@ -1,5 +1,3 @@
-import styles from "./WorkList.module.scss";
-
 type Props = {
   fp: string;
   alt: string;

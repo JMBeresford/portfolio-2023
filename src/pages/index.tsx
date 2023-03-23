@@ -1,4 +1,3 @@
-// import { HomeScene } from "@/components/canvas/HomeScene";
 import { Hero } from "@/components/dom/Hero";
 import dynamic from "next/dynamic";
 
@@ -12,8 +11,6 @@ export default function Page() {
   );
 }
 
-// Canvas components go here
-// It will receive same props as the Page component (from getStaticProps, etc.)
 Page.canvas = () => <>{<HomeScene />}</>;
 
 export async function getStaticProps() {

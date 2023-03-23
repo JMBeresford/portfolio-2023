@@ -1,9 +1,11 @@
 import Link from "next/link";
 import styles from "./Nav.module.scss";
+import { ColorSchemeSwitch } from "./ColorSchemeSwitch";
 
 export function Nav() {
   return (
     <nav className={styles.navbar}>
+      <ColorSchemeSwitch />
       <ul>
         <li>
           <Link href="/">home</Link>

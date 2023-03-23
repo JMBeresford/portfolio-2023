@@ -45,6 +45,20 @@ body,
     width: min(90%, 1750px);
     overflow-y: auto;
     overflow-x: hidden;
+    fill: white;
+    color: white;
+
+    transition: color 0.25s ease-in-out, fill 0.25s ease-in-out;
+
+    &.light {
+      fill: black;
+      color: black;
+
+      a::before {
+        mix-blend-mode: normal;
+        z-index: -1;
+      }
+    }
 
     &::-webkit-scrollbar {
       display: none;
@@ -58,8 +72,8 @@ body,
 
 a {
   position: relative;
-  color: white;
   text-decoration: none;
+  color: inherit;
   text-transform: uppercase;
   font-weight: 300;
 

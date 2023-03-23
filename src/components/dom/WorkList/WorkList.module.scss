@@ -23,7 +23,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid;
     opacity: 0.6;
     transition: opacity 0.25s ease-in-out;
 
@@ -38,7 +38,7 @@
 
       h6 {
         font-size: clamp(1rem, 1vw + 1rem, 1.2rem);
-        color: rgba(255, 255, 255, 0.5);
+        opacity: 0.5;
         font-weight: 300;
       }
 

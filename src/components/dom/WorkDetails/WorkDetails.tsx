@@ -1,19 +1,22 @@
 import Link from "next/link";
 import styles from "./WorkDetails.module.scss";
-import type { Work } from "@/utils/store";
+import type { Work } from "@/utils/state/works";
 import { Images } from "./Images";
+import { useStore } from "@/utils/state";
 
 type Props = {
   work: Work;
 };
 
 export function WorkDetails(props: Props) {
+  const colorScheme = useStore(s => s.colors.colorScheme);
+
   return (
     <div className={styles.workdetails}>
       <Link href={"/work"}>{"< back"}</Link>
       <h1>{props.work.title}</h1>
 
-      <div className={styles.details}>
+      <div className={`${styles.details} ${colorScheme === "dark" ? "" : styles.light}`}>
         <div className={styles.left}>
           <div>
             <h3>Client</h3>

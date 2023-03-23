@@ -1,0 +1,21 @@
+.loading {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.99);
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+
+  color: white;
+  opacity: 1;
+  pointer-events: none;
+  touch-action: none;
+
+  transition: opacity 0.3s ease-out 1.5s;
+
+  &.done {
+    opacity: 0;
+    pointer-events: none;
+    touch-action: none;
+  }
+}

@@ -1,4 +1,4 @@
-export function WorkScene() {
+export default function ContactScene() {
   return (
     <>
       <></>

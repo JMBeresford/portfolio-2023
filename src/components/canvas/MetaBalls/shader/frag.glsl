@@ -1,5 +1,5 @@
 precision highp float;
-#define MAX_STEPS (100)
+#define MAX_STEPS (75)
 #define MAX_DIST (12.0)
 
 uniform vec2 uResolution;
@@ -40,8 +40,8 @@ mat3 raymarchCamera(vec3 ro, vec3 ta, vec3 up) {
 
 vec3 getEnvMap(vec3 camToPoint, vec3 norm) {
   vec3 n = normalize(norm);
-  n *= rotateY(uTime * 0.5);
-  camToPoint *= rotateY(uTime * 0.5);
+  // n *= rotateY(uTime * 0.5);
+  // camToPoint *= rotateY(uTime * 0.5);
   vec3 r = refract(n, camToPoint, 0.0);
   vec3 envColor = textureCube(envMap, r).rgb;
   float f0 = 0.02;
