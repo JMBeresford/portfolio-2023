@@ -1,6 +1,8 @@
-import { Cube } from "@/components/canvas/Cube";
-import { WorkListScene } from "@/components/canvas/WorkListScene";
+import WorkListScene from "@/components/canvas/WorkListScene";
 import { WorkList } from "@/components/dom/WorkList";
+import dynamic from "next/dynamic";
+
+const WorksListScene = dynamic(() => import("@/components/canvas/WorkListScene"), { ssr: false });
 
 export default function Page() {
   return (

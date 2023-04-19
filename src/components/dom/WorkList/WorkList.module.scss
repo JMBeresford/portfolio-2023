@@ -1,5 +1,29 @@
+.worklistwrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  h1 {
+    font-size: clamp(4.5rem, 4rem + 2.5vw, 9rem);
+    font-weight: 200;
+    text-transform: uppercase;
+    margin-top: 2rem;
+
+    animation-name: fade-in;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: backwards;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      align-self: center;
+    }
+  }
+}
+
 .worklist {
-  padding-top: 30vh;
+  padding-top: 10vh;
   width: 100%;
 
   display: flex;
@@ -55,6 +79,8 @@
     }
 
     @media (max-width: 768px) {
+      opacity: 1;
+
       h5 {
         display: none;
       }

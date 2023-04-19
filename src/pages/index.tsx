@@ -11,7 +11,7 @@ export default function Page() {
   );
 }
 
-Page.canvas = () => <>{<HomeScene />}</>;
+Page.canvas = () => <></>;
 
 export async function getStaticProps() {
   return { props: { title: "John Beresford - Creative Developer" } };

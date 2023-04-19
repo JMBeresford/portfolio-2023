@@ -5,7 +5,8 @@
   }
 
   h1 {
-    font-size: clamp(3rem, 2.75rem + 2.45vw, 7.5rem);
+    margin-top: 1rem;
+    font-size: clamp(2.45rem, 1.5rem + 2.95vw, 7.5rem);
     font-weight: 400;
     text-transform: uppercase;
     margin-bottom: 1.75rem;
@@ -79,7 +80,6 @@
 
         button {
           cursor: pointer;
-          border-radius: 5px;
           display: grid;
           place-items: center;
           border: none;

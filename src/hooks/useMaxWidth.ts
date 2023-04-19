@@ -3,7 +3,8 @@ import { useMemo } from "react";
 
 export function useMaxWidth() {
   const size = useThree(state => state.size);
-  const viewport = useThree(state => state.viewport);
+  const camera = useThree(state => state.camera);
+  const viewport = useThree(state => state.viewport).getCurrentViewport(camera, [0, 0, -5]);
   const maxWidth = useMemo(() => {
     // ratio of THREE units to pixels
     const ratio = viewport.width / size.width;

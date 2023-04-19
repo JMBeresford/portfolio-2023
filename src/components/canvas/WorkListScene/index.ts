@@ -1,1 +1,3 @@
-export { WorkListScene } from "./WorkListScene";
+import WorkListScene from "./WorkListScene";
+
+export default WorkListScene;

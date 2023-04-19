@@ -7,7 +7,7 @@ import { clamp, damp } from "three/src/math/MathUtils";
 import { useStore } from "@/utils/state";
 import { animated, useSpring } from "@react-spring/three";
 
-export function WorkListScene() {
+export default function WorkListScene() {
   const font = "fonts/Montserrat-Light.ttf";
   const textRef = useRef<Mesh<BufferGeometry, Material>>();
   const colorScheme = useStore(s => s.colors.colorScheme);
@@ -21,24 +21,29 @@ export function WorkListScene() {
 
   useFrame((_, delta) => {
     if (textRef.current) {
-      textRef.current.material.opacity = damp(textRef.current.material.opacity, 0.5, 1, delta);
+      textRef.current.material.opacity = damp(
+        textRef.current.material.opacity,
+        mobile ? 0.5 : 0.15,
+        1,
+        delta,
+      );
     }
   });
 
   return (
     <>
-      <group position={[mobile ? 0 : -maxWidth / 2, mobile ? 0.85 : 0.5, -1]}>
-        <Text
+      <group position={[0, 1.35, -5]}>
+        {/* <Text
           ref={textRef}
           font={font}
-          fontSize={clamp(0.9, 0.5 + size.width * 0.0005, 1.6)}
-          anchorY="bottom"
-          anchorX={mobile ? "center" : "left"}
+          fontSize={clamp(0.775, 0.5 + size.width * 0.0005, 1.6) * 2.5}
+          anchorY="middle"
+          anchorX="center"
           renderOrder={2}
         >
           WORK
-          <animated.meshBasicMaterial color={color} opacity={0} />
-        </Text>
+          <animated.meshStandardMaterial color={color} opacity={0} />
+        </Text> */}
       </group>
     </>
   );

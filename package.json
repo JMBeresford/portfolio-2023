@@ -10,10 +10,12 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@react-three/drei": "^9.56.5",
-    "@react-three/fiber": "^8.10.1",
+    "@react-spring/three": "^9.7.1",
+    "@react-three/drei": "^9.64.0",
+    "@react-three/fiber": "^8.12.0",
     "@react-three/flex": "^1.0.1",
     "@react-three/postprocessing": "^2.7.0",
+    "glsl-blend": "^1.0.3",
     "glsl-noise": "^0.0.0",
     "glsl-random": "^0.0.5",
     "gsap": "^3.11.5",
@@ -40,10 +42,9 @@
     "file-loader": "^6.2.0",
     "glslify": "^7.1.1",
     "glslify-loader": "^2.0.0",
-    "postcss": "^8.4.21",
     "prettier": "^2.8.3",
     "raw-loader": "^4.0.2",
-    "typescript": "^4.9.5",
+    "typescript": "^5.0.2",
     "url-loader": "^4.1.1"
   },
   "scripts": {

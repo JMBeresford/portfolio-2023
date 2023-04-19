@@ -1,13 +1,21 @@
 .hero {
   position: absolute;
-  bottom: 1rem;
-  color: rgba(255, 255, 255, 0);
-  pointer-events: none;
-  touch-action: none;
+  bottom: 2.5rem;
+  z-index: 15;
+
+  .text {
+    color: white;
+  }
+
+  h1,
+  h3 {
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+  }
 
   h1 {
     text-transform: uppercase;
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 2rem + 2vw, 5rem);
     font-weight: 300;
   }
 
@@ -15,5 +23,16 @@
     text-transform: lowercase;
     font-weight: 200;
     font-size: 1.5rem;
+
+    animation-delay: 0.5s;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.8;
   }
 }

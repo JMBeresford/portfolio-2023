@@ -1,27 +1,46 @@
-import { PerspectiveCamera } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useRouter } from "next/router";
+import { useLayoutEffect, useRef } from "react";
 import { Group, PerspectiveCamera as PerspectiveCameraType } from "three";
 import { damp } from "three/src/math/MathUtils";
 
 export function Camera() {
   const ref = useRef<PerspectiveCameraType>();
   const outerRef = useRef<Group>();
+  const router = useRouter();
+  const size = useThree(s => s.size);
 
-  useFrame(({ mouse, clock }, delta) => {
+  useLayoutEffect(() => {
+    ref.current.rotation.order = "YXZ";
+  }, []);
+
+  useFrame(({ mouse }, delta) => {
     if (!ref.current || !outerRef.current) return;
+    const path = router.asPath;
 
-    // outerRef.current.rotation.y = clock.elapsedTime * 0.1;
+    const baseRotX = path === "/" ? 0 : Math.PI / -6;
+    const rotX = size.width > 768 ? baseRotX + mouse.y * 0.1 : baseRotX;
+    const rotY = size.width > 768 ? -mouse.x * 0.1 : 0;
 
-    ref.current.position.x = damp(ref.current.position.x, -mouse.x, 4, delta);
-    ref.current.position.y = damp(ref.current.position.y, -mouse.y, 4, delta);
+    ref.current.rotation.x = damp(ref.current.rotation.x, rotX, 2, delta);
+    ref.current.rotation.y = damp(ref.current.rotation.y, rotY, 2, delta);
 
-    ref.current.lookAt(0, 0, 0);
+    const posY = path === "/" ? 0 : 20;
+    ref.current.position.y = damp(ref.current.position.y, posY, 4, delta);
   });
 
   return (
     <group ref={outerRef}>
-      <PerspectiveCamera ref={ref} near={0.0001} far={100} position={[0, 0, 5]} makeDefault />
+      <PerspectiveCamera
+        ref={ref}
+        near={0.0001}
+        far={1500}
+        position={[0, 0, 0]}
+        fov={size.width > 768 ? 50 : 65}
+        makeDefault
+      />
+      {/* <OrbitControls camera={ref.current} /> */}
     </group>
   );
 }

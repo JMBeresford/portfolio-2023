@@ -21,6 +21,11 @@ $height: $text-size * 1.85;
     position: relative;
     align-items: center;
 
+    // DISABLING THE SWITCH FOR NOW
+    opacity: 0;
+    pointer-events: none;
+    touch-action: none;
+
     &.light {
       .icon {
         transform: translateY(-100%);
@@ -68,6 +73,29 @@ $height: $text-size * 1.85;
     li {
       list-style: none;
       font-size: $text-size;
+
+      a {
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -0.125rem;
+          height: 0.125rem;
+          background-color: white;
+
+          transform-origin: bottom center;
+          transform: scaleY(0);
+
+          transition: transform 0.25s ease-in-out;
+        }
+
+        &.active::after {
+          transform: scaleY(1);
+        }
+      }
     }
   }
 

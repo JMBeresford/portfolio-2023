@@ -1,21 +1,17 @@
-import { Canvas, extend } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { AdaptiveEvents, Preload, Stats } from "@react-three/drei";
-import { CineonToneMapping } from "three";
-import MetaBalls from "./MetaBalls";
+import { ACESFilmicToneMapping, CineonToneMapping } from "three";
 import { Camera } from "./Camera";
 import { Suspense } from "react";
-import { SMAAPass } from "three-stdlib";
-import { EffectComposer, SMAA, Vignette } from "@react-three/postprocessing";
+import { EffectComposer, SMAA } from "@react-three/postprocessing";
 import { World } from "./World";
-
-extend({ SMAAPass });
 
 export default function Scene({ children, ...props }) {
   return (
     <Canvas
       {...props}
-      gl={{ antialias: false, toneMapping: CineonToneMapping }}
-      dpr={[1, 1.5]}
+      gl={{ toneMapping: ACESFilmicToneMapping, antialias: true, logarithmicDepthBuffer: true }}
+      dpr={[1, 2]}
       style={{
         pointerEvents: "none",
         touchAction: "none",
@@ -29,16 +25,14 @@ export default function Scene({ children, ...props }) {
         maxHeight: "90%",
       }}
     >
-      {children}
       <World />
       <Camera />
+      {children}
       <Stats />
       <Suspense fallback={null}>
-        <MetaBalls />
-        <EffectComposer multisampling={0} disableNormalPass>
+        {/* <EffectComposer multisampling={4} disableNormalPass>
           <SMAA />
-          <Vignette offset={0.4} darkness={0.5} eskil={true} />
-        </EffectComposer>
+        </EffectComposer> */}
       </Suspense>
       <AdaptiveEvents />
       <Preload all />
