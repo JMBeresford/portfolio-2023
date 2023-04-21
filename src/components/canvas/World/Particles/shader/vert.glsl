@@ -13,7 +13,7 @@ mat3 rotateZ(float angle) {
 
 void main() {
   float t = uTime * 0.125;
-  float progress = fract(t * aSpeed);
+  float progress = pow(fract(t * aSpeed), 3.0);
   vec3 convergePoint = vec3(mix(uConvergeTo.x, position.x, 0.15), mix(uConvergeTo.y, position.y, 0.15), uConvergeTo.z);
   vec3 pos = mix(position * rotateZ(t), convergePoint, progress);
 

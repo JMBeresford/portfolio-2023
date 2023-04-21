@@ -3,6 +3,7 @@ import styles from "./WorkDetails.module.scss";
 import type { Work } from "@/utils/state/works";
 import { Images } from "./Images";
 import { useStore } from "@/utils/state";
+import { hoverHandlers } from "@/utils";
 
 type Props = {
   work: Work;
@@ -13,7 +14,9 @@ export function WorkDetails(props: Props) {
 
   return (
     <div className={styles.workdetails}>
-      <Link href={"/work"}>{"< back"}</Link>
+      <Link href={"/work"} {...hoverHandlers}>
+        {"< back"}
+      </Link>
       <h1>{props.work.title}</h1>
 
       <div className={`${styles.details} ${colorScheme === "dark" ? "" : styles.light}`}>
@@ -33,14 +36,14 @@ export function WorkDetails(props: Props) {
 
             <div className={styles.links}>
               {props.work.live && (
-                <button>
+                <button {...hoverHandlers}>
                   <a target="_blank" rel="noreferrer" href={props.work.live}>
                     Live
                   </a>
                 </button>
               )}
               {props.work.source && (
-                <button>
+                <button {...hoverHandlers}>
                   <a target="_blank" rel="noreferrer" href={props.work.source}>
                     Code
                   </a>

@@ -2,7 +2,7 @@ import { useStore } from "@/utils/state";
 import { Environment, Lightformer, useTexture } from "@react-three/drei";
 import { useMemo, useRef, useState } from "react";
 // import { useControls } from "leva";
-// import colors from "nice-color-palettes/1000.json";
+import colors from "nice-color-palettes/1000.json";
 import {
   BufferGeometry,
   Color,
@@ -22,13 +22,19 @@ import mapImg from "./img/map.jpg";
 import { Cities } from "./City";
 import { Floor } from "./Floor";
 import { Particles } from "./Particles";
+import { AmbientSound } from "./AmbientSound";
+import { BoopSound } from "./BoopSound";
+import { sphericalToCartesian } from "@/utils";
 
 const colorsDark = useStore.getState().colors.colorsDark;
+// const colorsDark = colors;
 
 export function World(props: JSX.IntrinsicElements["mesh"]) {
   const ref = useRef<Mesh<BufferGeometry, WorldMaterialProps>>();
   const ref2 = useRef<Mesh<BufferGeometry, WorldMaterialProps>>();
-  const [spherePos] = useState(() => sphericalToCartesian(1.0, 0.0, 45.35).multiplyScalar(500));
+  const [spherePos] = useState(() =>
+    new Vector3(...sphericalToCartesian(1.0, 0.0, 45.35)).multiplyScalar(500),
+  );
 
   const textures = useTexture(
     {
@@ -56,7 +62,7 @@ export function World(props: JSX.IntrinsicElements["mesh"]) {
   const updateMaterials = (mat: ShaderMaterial, colors: Color[], t: number) => {
     mat.uniforms.uTime.value = t;
 
-    mat.uniforms.uColor1.value.lerp(colors[0], 0.005);
+    mat.uniforms.uColor1.value.lerp(colors[0], 0.004);
     mat.uniforms.uColor2.value.lerp(colors[1], 0.005);
     mat.uniforms.uColor3.value.lerp(colors[2], 0.005);
     mat.uniforms.uColor3.value.lerp(colors[3], 0.005);
@@ -82,7 +88,12 @@ export function World(props: JSX.IntrinsicElements["mesh"]) {
         </mesh>
       </Environment>
 
-      <mesh ref={ref} scale={1000} {...props}>
+      <mesh
+        ref={ref}
+        scale={1000}
+        {...props}
+        // onClick={() => console.log(palette.map(el => `"${el}"`).join(","))}
+      >
         <sphereGeometry args={[1, 32, 32]} />
         <WorldMaterial />
       </mesh>
@@ -100,6 +111,8 @@ export function World(props: JSX.IntrinsicElements["mesh"]) {
       </Cities>
 
       <Particles convergeTo={spherePos} />
+      <AmbientSound position={[0, 0, 0]} />
+      <BoopSound />
 
       <Floor position={[0, -30, -20]}>
         <meshStandardMaterial
@@ -122,11 +135,4 @@ function colorsEqual(a: Color, b: Color) {
   return (
     Math.abs(a.r - b.r) < epsilon && Math.abs(a.g - b.g) < epsilon && Math.abs(a.b - b.b) < epsilon
   );
-}
-
-function sphericalToCartesian(r: number, theta: number, phi: number) {
-  const x = r * Math.sin(phi) * Math.sin(theta);
-  const y = r * Math.cos(phi);
-  const z = r * Math.sin(phi) * Math.cos(theta);
-  return new Vector3(x, y, -z);
 }

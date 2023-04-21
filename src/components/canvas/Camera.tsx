@@ -17,7 +17,7 @@ export function Camera() {
 
   useFrame(({ mouse }, delta) => {
     if (!ref.current || !outerRef.current) return;
-    const path = router.asPath;
+    const path = router.pathname;
 
     const baseRotX = path === "/" ? 0 : Math.PI / -6;
     const rotX = size.width > 768 ? baseRotX + mouse.y * 0.1 : baseRotX;

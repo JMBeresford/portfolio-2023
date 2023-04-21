@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "./WorkList.module.scss";
 import { useStore } from "@/utils/state";
+import { hoverHandlers } from "@/utils";
 
 export function WorkList() {
   const delay = 0.35;
@@ -15,6 +16,7 @@ export function WorkList() {
             href={`/work/${name}`}
             key={idx}
             style={{ animationDelay: `${delay + idx * 0.4}s` }}
+            {...hoverHandlers}
           >
             <div className={styles.work}>
               <div className={styles.left}>

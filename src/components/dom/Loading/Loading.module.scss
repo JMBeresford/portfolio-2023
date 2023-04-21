@@ -8,8 +8,8 @@
 
   color: white;
   opacity: 1;
-  pointer-events: none;
-  touch-action: none;
+  pointer-events: all;
+  touch-action: all;
 
   transition: opacity 0.3s ease-out 1.5s;
 
@@ -17,5 +17,36 @@
     opacity: 0;
     pointer-events: none;
     touch-action: none;
+  }
+
+  .progress {
+    display: grid;
+    place-items: center;
+
+    button {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      pointer-events: none;
+      touch-action: none;
+    }
+
+    h1 {
+      opacity: 1;
+    }
+
+    &.loaded {
+      button {
+        opacity: 1;
+        pointer-events: all;
+        touch-action: all;
+      }
+
+      h1 {
+        opacity: 0;
+        pointer-events: none;
+        touch-action: none;
+      }
+    }
   }
 }

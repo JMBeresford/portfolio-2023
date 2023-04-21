@@ -68,6 +68,42 @@ his latest creations and maintain the integrity of his portfolio.
       source: "https://github.com/JMBeresford/art-of-jay-joson",
       year: 2020,
     },
+    deforestationDetector: {
+      title: "Deforestation Detector",
+      client: undefined,
+      role: "Lead Developer/Designer",
+      description: `\
+As a group of friends passionate about making a positive impact in the world, we \
+decided to embark on a pet project that could contribute, no matter how small. \
+We set our sights on the issue of deforestation, and aimed to create something \
+that would increase visibility of it and promote efforts to reduce it.
+
+To achieve our goal, we split into two small teams. One team utilized deep learning \
+techniques to label various images of the rainforest and determine the level of \
+deforestation in each image, while the other team used web and graphics technologies \
+to visualize the predictions generated from the deep learning model.
+
+As the lead for the web-based team, I was responsible for guiding the team in \
+creating an immersive web experience that would utilize a 3D model of an area of the \
+rainforest to showcase the different levels and causes of deforestation in that area.
+
+Drawing on extensive research, we developed a web experience that provided users with \
+extensive information on deforestation, its causes, and its impact on the environment. \
+Using our 3D model, users were able to explore the effects of deforestation in real-time \
+and gain a deeper understanding of the issue.
+      `,
+      images: [
+        deforestationDetector0.src,
+        deforestationDetector1.src,
+        deforestationDetector2.src,
+        deforestationDetector3.src,
+        deforestationDetector4.src,
+      ],
+      color: "#007D5C",
+      live: "http://deforestationdetector.com/",
+      source: "https://github.com/Deforestation-Detector/web",
+      year: 2022,
+    },
     ucscChessClub: {
       title: "UCSC Chess Club",
       client: "UCSC Chess Club",
@@ -97,42 +133,6 @@ ensuring the integrity of our rankings and the environment of play.
       live: undefined,
       source: "https://github.com/JMBeresford/UCSC-chessclub",
       year: 2021,
-    },
-    deforestationDetector: {
-      title: "Deforestation Detector",
-      client: undefined,
-      role: "Lead Developer/Designer",
-      description: `\
-As a group of friends passionate about making a positive impact in the world, we \
-decided to embark on a pet project that could contribute, no matter how small. \
-We set our sights on the issue of deforestation, and aimed to create something \
-that would increase visibility of it and promote efforts to reduce it.
-
-To achieve our goal, we split into two small teams. One team utilized deep learning \
-techniques to label various images of the rainforest and determine the level of \
-deforestation in each image, while the other team used web and graphics technologies \
-to visualize the predictions generated from the deep learning model.
-
-As the lead for the web-based team, I was responsible for guiding the team in \
-creating an immersive web experience that would utilize a 3D model of an area of the \
-rainforest to showcase the different levels and causes of deforestation in that area.
-
-Drawing on extensive research, we developed a web experience that provided users with \
-extensive information on deforestation, its causes, and its impact on the environment. \
-Using our 3D model, users were able to explore the effects of deforestation in real-time \
-and gain a deeper understanding of the issue.
-    `,
-      images: [
-        deforestationDetector0.src,
-        deforestationDetector1.src,
-        deforestationDetector2.src,
-        deforestationDetector3.src,
-        deforestationDetector4.src,
-      ],
-      color: "#007D5C",
-      live: "http://deforestationdetector.com/",
-      source: "https://github.com/Deforestation-Detector/web",
-      year: 2022,
     },
   },
 });

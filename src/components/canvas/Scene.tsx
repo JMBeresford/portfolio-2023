@@ -1,12 +1,15 @@
 import { Canvas } from "@react-three/fiber";
 import { AdaptiveEvents, Preload, Stats } from "@react-three/drei";
-import { ACESFilmicToneMapping, CineonToneMapping } from "three";
+import { ACESFilmicToneMapping, CineonToneMapping, Vector3 } from "three";
 import { Camera } from "./Camera";
 import { Suspense } from "react";
-import { EffectComposer, SMAA } from "@react-three/postprocessing";
+import { DepthOfField, EffectComposer, GodRays, SMAA } from "@react-three/postprocessing";
 import { World } from "./World";
+import { sphericalToCartesian } from "@/utils";
+import { useStore } from "@/utils/state";
 
 export default function Scene({ children, ...props }) {
+  const sun = useStore(s => s.sun);
   return (
     <Canvas
       {...props}
@@ -28,12 +31,11 @@ export default function Scene({ children, ...props }) {
       <World />
       <Camera />
       {children}
-      <Stats />
-      <Suspense fallback={null}>
-        {/* <EffectComposer multisampling={4} disableNormalPass>
-          <SMAA />
-        </EffectComposer> */}
-      </Suspense>
+      <Stats className="statsPanel" />
+      {/* <Suspense fallback={null}>
+        <EffectComposer multisampling={4} disableNormalPass>
+        </EffectComposer>
+      </Suspense> */}
       <AdaptiveEvents />
       <Preload all />
     </Canvas>

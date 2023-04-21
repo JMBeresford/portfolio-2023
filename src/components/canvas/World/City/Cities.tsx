@@ -20,7 +20,7 @@ type Props = JSX.IntrinsicElements["group"] & {
 };
 
 export function Cities({ children, ...props }: Props) {
-  const { nodes } = useGLTF("models/cities.glb") as GLTFResult;
+  const { nodes } = useGLTF("/models/cities.glb") as GLTFResult;
   return (
     <group {...props} dispose={null} position={[0, -30, -600]}>
       <mesh geometry={nodes.cities.geometry} scale={15} scale-y={25}>
@@ -30,4 +30,4 @@ export function Cities({ children, ...props }: Props) {
   );
 }
 
-useGLTF.preload("models/cities.glb");
+useGLTF.preload("/models/cities.glb");
