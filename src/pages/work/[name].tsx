@@ -1,17 +1,37 @@
+import { GetStaticPropsContext } from "next";
 import { WorkDetails } from "@/components/dom/WorkDetails";
 import { useStore } from "@/utils/state";
-import { useRouter } from "next/router";
+import { Work as WorkType } from "@/utils/state/works";
 
-export default function Work() {
-  const router = useRouter();
-  const { name } = router.query;
-  const works = useStore(s => s.works);
+type Props = {
+  work: WorkType;
+};
 
-  const work = works[name as string];
-
+export default function Work({ work }: Props) {
   if (!work) {
     return <></>;
   }
 
   return <WorkDetails work={work} />;
+}
+
+export async function getStaticProps(context: GetStaticPropsContext): Promise<{ props: Props }> {
+  const name = context.params.name as string;
+
+  const work = useStore.getState().works[name];
+
+  return {
+    props: {
+      work,
+    }, // will be passed to the page component as props
+  };
+}
+
+export async function getStaticPaths() {
+  const works = useStore.getState().works;
+
+  return {
+    paths: Object.keys(works).map(name => ({ params: { name } })),
+    fallback: false,
+  };
 }

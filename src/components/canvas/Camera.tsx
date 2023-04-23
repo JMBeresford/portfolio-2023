@@ -15,7 +15,7 @@ export function Camera() {
     ref.current.rotation.order = "YXZ";
   }, []);
 
-  useFrame(({ mouse }, delta) => {
+  useFrame(({ mouse, clock }, delta) => {
     if (!ref.current || !outerRef.current) return;
     const path = router.pathname;
 
@@ -28,6 +28,11 @@ export function Camera() {
 
     const posY = path === "/" ? 0 : 20;
     ref.current.position.y = damp(ref.current.position.y, posY, 4, delta);
+
+    const t = clock.elapsedTime * 0.25;
+
+    ref.current.position.x = damp(ref.current.position.x, Math.sin(t * 0.5) * 20, 4, delta);
+    ref.current.position.z = damp(ref.current.position.z, Math.cos(t * 0.35) * 10, 4, delta);
   });
 
   return (

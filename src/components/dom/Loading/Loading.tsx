@@ -12,8 +12,8 @@ export function Loading() {
         <h1>John Beresford</h1>
         <h3>creative developer</h3>
       </div>
-      <div className={`${styles.progress} ${progress >= 100 ? styles.loaded : ""}`}>
-        <div className={styles.buttons}>
+      <div className={styles.progress}>
+        <div className={styles.buttons + (progress >= 100 ? " " + styles.loaded : "")}>
           <button
             onClick={() => {
               useStore.setState({ loaded: true });
@@ -32,7 +32,7 @@ export function Loading() {
           </button>
         </div>
 
-        <h1>Loading</h1>
+        <h3 className={progress >= 100 ? styles.loaded : undefined}>Loading</h3>
       </div>
     </div>
   );

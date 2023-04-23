@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Header } from "@/config";
 import { Layout } from "@/components/dom/Layout";
 import "@/styles/globals.scss";
@@ -22,7 +22,9 @@ export default function App({ Component, pageProps = { title: "index" } }) {
     <>
       <Header title={pageProps.title} />
       <Loading />
-      <Scene eventSource={ref} />
+      <Suspense fallback={null}>
+        <Scene eventSource={ref} />
+      </Suspense>
       <Layout ref={ref}>
         <Component {...pageProps} />
       </Layout>

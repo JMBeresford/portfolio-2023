@@ -26,7 +26,7 @@ export function AmbientSound(props: Props) {
 
   useLayoutEffect(() => {
     if (loaded) {
-      ref.current.setVolume(0.5);
+      ref.current.setVolume(0.35);
       ref.current.gain.gain.setValueAtTime(0, ref.current.context.currentTime);
 
       ref.current.play();

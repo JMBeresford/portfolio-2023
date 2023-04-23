@@ -1,30 +1,54 @@
 /* eslint-disable @next/next/no-img-element */
 import { hoverHandlers } from "@/utils";
 import styles from "./Contact.module.scss";
-import Image from "next/image";
+import { FormEvent, useCallback, useRef } from "react";
+import { useRouter } from "next/router";
 
 export function Contact() {
+  const router = useRouter();
+  const ref = useRef<HTMLFormElement>();
+
+  const submit = useCallback(
+    (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const data = new FormData(ref.current);
+
+      fetch(ref.current.action, {
+        method: ref.current.method,
+        body: data,
+        headers: { Accept: "application/json" },
+      }).then(res => {
+        if (res.status === 200) {
+          router.push("/contact/received");
+        }
+      });
+
+      return false;
+    },
+    [router],
+  );
+
   return (
     <div className={styles.contact}>
       <h1>Contact Me</h1>
 
       <div className={styles.content}>
-        <form>
+        <form ref={ref} onSubmit={submit} action="https://formspree.io/f/myyazelp" method="POST">
           <div className={styles.partition}>
-            <label>
+            <label htmlFor="name">
               Name
-              <input />
+              <input id="name" name="name" />
             </label>
-            <label>
+            <label htmlFor="email">
               Email
-              <input />
+              <input id="email" name="email" />
             </label>
           </div>
 
           <div className={styles.partition}>
-            <label>
+            <label htmlFor="message">
               Message
-              <textarea />
+              <textarea id="message" name="message" />
             </label>
           </div>
 

@@ -26,8 +26,8 @@ export type Work = {
   description: string;
   images: string[];
   color: string;
-  live: string;
-  source: string;
+  live?: string;
+  source?: string;
   year: number;
 };
 
@@ -37,7 +37,7 @@ export const worksSlice: StateCreator<State, [], [], WorksState> = set => ({
   works: {
     deforestationDetector: {
       title: "Deforestation Detector",
-      client: undefined,
+      client: "N/A",
       role: "Lead Developer/Designer",
       description: `\
 As a group of friends passionate about making a positive impact in the world, we \
@@ -130,7 +130,6 @@ ensuring the integrity of our rankings and the environment of play.
         ucscChessClub4.src,
       ],
       color: "#B39554",
-      live: undefined,
       source: "https://github.com/JMBeresford/UCSC-chessclub",
       year: 2021,
     },

@@ -93,6 +93,10 @@ a {
     transform-origin: left;
     transform: scaleX(1);
   }
+
+  &.noAnim::before {
+    display: none;
+  }
 }
 
 .statsPanel {
