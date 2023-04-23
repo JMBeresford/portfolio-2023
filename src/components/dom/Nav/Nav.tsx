@@ -3,13 +3,15 @@ import styles from "./Nav.module.scss";
 import { ColorSchemeSwitch } from "./ColorSchemeSwitch";
 import { useRouter } from "next/router";
 import { hoverHandlers } from "@/utils";
+import { MuteButton } from "./MuteButton";
 
 export function Nav() {
   const path = useRouter().asPath;
 
   return (
     <nav className={styles.navbar}>
-      <ColorSchemeSwitch />
+      {/* <ColorSchemeSwitch /> */}
+      <MuteButton />
       <ul>
         <li>
           <Link href="/" className={path === "/" ? styles.active : ""} {...hoverHandlers}>

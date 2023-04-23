@@ -27,5 +27,5 @@ export function BoopSound(props: Props) {
     }
   }, [hovering, muted]);
 
-  return <PositionalAudio ref={ref} url="/audio/boop.wav" loop={false} {...props} />;
+  return <PositionalAudio ref={ref} url="/audio/boop.mp3" loop={false} {...props} />;
 }

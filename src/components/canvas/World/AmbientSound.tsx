@@ -26,6 +26,9 @@ export function AmbientSound(props: Props) {
 
   useLayoutEffect(() => {
     if (loaded) {
+      ref.current.setVolume(0.5);
+      ref.current.gain.gain.setValueAtTime(0, ref.current.context.currentTime);
+
       ref.current.play();
     }
   }, [loaded]);
@@ -35,15 +38,15 @@ export function AmbientSound(props: Props) {
     if (!muted && inFocus) {
       const gain = ref.current.gain.gain;
 
-      gain.setValueAtTime(0, ref.current.context.currentTime);
-      gain.linearRampToValueAtTime(0.5, ref.current.context.currentTime + 2);
+      gain.setValueAtTime(gain.value, ref.current.context.currentTime);
+      gain.linearRampToValueAtTime(1, ref.current.context.currentTime + 2);
     } else {
       const gain = ref.current.gain.gain;
 
-      gain.setValueAtTime(0.5, ref.current.context.currentTime);
+      gain.setValueAtTime(gain.value, ref.current.context.currentTime);
       gain.linearRampToValueAtTime(0, ref.current.context.currentTime + 2);
     }
   }, [muted, inFocus]);
 
-  return <PositionalAudio ref={ref} url="/audio/ambient.wav" loop {...props} />;
+  return <PositionalAudio ref={ref} url="/audio/ambient.mp3" loop {...props} />;
 }

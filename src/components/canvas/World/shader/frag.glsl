@@ -58,8 +58,8 @@ void main() {
   float blackHole = smoothstep(startBlackHole, startBlackHole + 0.015, 1.0 - d);
 
   vec2 rimSt = st;
-  rimSt *= rotate(pow((d) * 4.25, 2.0));
-  float waves = smoothstep(0.0, 1.0, snoise3(vec3((rimSt * 8.0), t)));
+  rimSt *= rotate(pow((1.0 - d) * 1.25, 3.0));
+  float waves = 0.0;// snoise3(vec3((rimSt * 8.0), t)) * 1.25;
   float startRim = startBlackHole - 0.0925;
   float endRim = startRim + 0.105; // + (waves * 0.015);
 

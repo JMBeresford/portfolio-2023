@@ -1,7 +1,5 @@
 import { useProgress } from "@react-three/drei";
 import styles from "./Loading.module.scss";
-import Image from "next/image";
-import logo from "@/assets/img/logo.png";
 import { useStore } from "@/utils/state";
 
 export function Loading() {
@@ -10,16 +8,29 @@ export function Loading() {
 
   return (
     <div className={`${styles.loading} ${loaded ? styles.done : ""}`}>
-      <Image height={200} width={200} src={logo.src} alt="JBeresford logo" />
+      <div className={styles.text}>
+        <h1>John Beresford</h1>
+        <h3>creative developer</h3>
+      </div>
       <div className={`${styles.progress} ${progress >= 100 ? styles.loaded : ""}`}>
-        <button
-          onClick={() => {
-            useStore.setState({ loaded: true });
-            useStore.setState({ muted: false });
-          }}
-        >
-          Enter
-        </button>
+        <div className={styles.buttons}>
+          <button
+            onClick={() => {
+              useStore.setState({ loaded: true });
+              useStore.setState({ muted: false });
+            }}
+          >
+            Enter
+          </button>
+
+          <button
+            onClick={() => {
+              useStore.setState({ loaded: true });
+            }}
+          >
+            disable audio
+          </button>
+        </div>
 
         <h1>Loading</h1>
       </div>

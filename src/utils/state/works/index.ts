@@ -35,39 +35,6 @@ export type WorksState = { works: { [key: string]: Work } };
 
 export const worksSlice: StateCreator<State, [], [], WorksState> = set => ({
   works: {
-    artOfJayJoson: {
-      title: "Art of Jay Joson",
-      client: "Jay Joson",
-      role: "Lead Developer/Designer",
-      description: `\
-Looking for a sleek and modern web experience to showcase his impressive portfolio, \
-Jay Joson approached us for a web design and development project. As an illustrator, \
-animator, and character creator based in California, Jay was looking for a website that \
-would highlight his selected work in a visually appealing way.
-
-With Jay's vision in mind, I created a sleek and modern static website that would \
-highlight his artwork in a minimalist and user-friendly way. In addition, I set up \
-a hosting provider that reduced the monthly cost of his website by over 60%, \
-providing significant cost savings without compromising the website's reliability and \
-availability.
-
-To further empower Jay, I set up a content management system that would allow him \
-to update, configure, and curate his own works after handing ownership over to him. This \
-gave Jay complete control over his website, ensuring that he could keep it up to date with \
-his latest creations and maintain the integrity of his portfolio.
-    `,
-      images: [
-        artofjayjoson0.src,
-        artofjayjoson1.src,
-        artofjayjoson2.src,
-        artofjayjoson3.src,
-        artofjayjoson4.src,
-      ],
-      color: "#8657b1",
-      live: "http://artofjayjoson.com/",
-      source: "https://github.com/JMBeresford/art-of-jay-joson",
-      year: 2020,
-    },
     deforestationDetector: {
       title: "Deforestation Detector",
       client: undefined,
@@ -103,6 +70,39 @@ and gain a deeper understanding of the issue.
       live: "http://deforestationdetector.com/",
       source: "https://github.com/Deforestation-Detector/web",
       year: 2022,
+    },
+    artOfJayJoson: {
+      title: "Art of Jay Joson",
+      client: "Jay Joson",
+      role: "Lead Developer/Designer",
+      description: `\
+Looking for a sleek and modern web experience to showcase his impressive portfolio, \
+Jay Joson approached us for a web design and development project. As an illustrator, \
+animator, and character creator based in California, Jay was looking for a website that \
+would highlight his selected work in a visually appealing way.
+
+With Jay's vision in mind, I created a sleek and modern static website that would \
+highlight his artwork in a minimalist and user-friendly way. In addition, I set up \
+a hosting provider that reduced the monthly cost of his website by over 60%, \
+providing significant cost savings without compromising the website's reliability and \
+availability.
+
+To further empower Jay, I set up a content management system that would allow him \
+to update, configure, and curate his own works after handing ownership over to him. This \
+gave Jay complete control over his website, ensuring that he could keep it up to date with \
+his latest creations and maintain the integrity of his portfolio.
+    `,
+      images: [
+        artofjayjoson0.src,
+        artofjayjoson1.src,
+        artofjayjoson2.src,
+        artofjayjoson3.src,
+        artofjayjoson4.src,
+      ],
+      color: "#8657b1",
+      live: "http://artofjayjoson.com/",
+      source: "https://github.com/JMBeresford/art-of-jay-joson",
+      year: 2020,
     },
     ucscChessClub: {
       title: "UCSC Chess Club",

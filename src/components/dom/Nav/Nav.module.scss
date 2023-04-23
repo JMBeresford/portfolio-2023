@@ -1,5 +1,6 @@
 $text-size: 1rem;
 $height: $text-size * 1.85;
+$mute-size: $text-size;
 
 .navbar {
   position: relative;
@@ -11,6 +12,43 @@ $height: $text-size * 1.85;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .mute {
+    position: relative;
+    opacity: 1;
+    border-bottom: 2px white solid;
+    padding: 0 2px;
+
+    button {
+      cursor: pointer;
+      display: flex;
+      border: none;
+      background-color: none;
+      background: none;
+      height: $mute-size;
+      width: $mute-size;
+      gap: 0.15rem;
+
+      .bar {
+        width: 33%;
+        height: 100%;
+        background-color: white;
+
+        transform-origin: bottom;
+        transform: scaleY(0.125);
+
+        transition: opacity 0.75s ease-in-out;
+        animation: mute-animation 0.75s ease-in-out infinite alternate-reverse;
+      }
+    }
+
+    &.muted {
+      opacity: 0.5;
+      .bar {
+        animation-play-state: paused;
+      }
+    }
+  }
 
   .switch {
     cursor: pointer;
@@ -107,5 +145,15 @@ $height: $text-size * 1.85;
       justify-content: space-evenly;
       gap: 1.5rem;
     }
+  }
+}
+
+@keyframes mute-animation {
+  0% {
+    transform: initial;
+  }
+
+  0% {
+    transform: scaleY(1);
   }
 }

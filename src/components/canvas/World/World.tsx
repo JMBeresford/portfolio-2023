@@ -1,8 +1,8 @@
 import { useStore } from "@/utils/state";
-import { Environment, Lightformer, useTexture } from "@react-three/drei";
+import { Environment, useTexture } from "@react-three/drei";
 import { useMemo, useRef, useState } from "react";
 // import { useControls } from "leva";
-import colors from "nice-color-palettes/1000.json";
+// import colors from "nice-color-palettes/1000.json";
 import {
   BufferGeometry,
   Color,
@@ -19,7 +19,7 @@ import normalImg from "./img/normal.jpg";
 import displacementImg from "./img/displacement.jpg";
 import metalnessImg from "./img/metalness.jpg";
 import mapImg from "./img/map.jpg";
-import { Cities } from "./City";
+import { City } from "./City";
 import { Floor } from "./Floor";
 import { Particles } from "./Particles";
 import { AmbientSound } from "./AmbientSound";
@@ -48,7 +48,7 @@ export function World(props: JSX.IntrinsicElements["mesh"]) {
       Object.values(textures).forEach((t: Texture) => {
         t.wrapS = RepeatWrapping;
         t.wrapT = RepeatWrapping;
-        t.repeat.set(0.3, 2);
+        t.repeat.set(4, 8);
       });
     },
   );
@@ -62,7 +62,7 @@ export function World(props: JSX.IntrinsicElements["mesh"]) {
   const updateMaterials = (mat: ShaderMaterial, colors: Color[], t: number) => {
     mat.uniforms.uTime.value = t;
 
-    mat.uniforms.uColor1.value.lerp(colors[0], 0.004);
+    mat.uniforms.uColor1.value.lerp(colors[0], 0.005);
     mat.uniforms.uColor2.value.lerp(colors[1], 0.005);
     mat.uniforms.uColor3.value.lerp(colors[2], 0.005);
     mat.uniforms.uColor3.value.lerp(colors[3], 0.005);
@@ -98,17 +98,14 @@ export function World(props: JSX.IntrinsicElements["mesh"]) {
         <WorldMaterial />
       </mesh>
 
-      <Cities>
+      <City>
         <meshStandardMaterial
           {...textures}
           envMapIntensity={3}
-          // metalness={2.2}
           roughness={1}
           displacementScale={0}
-          // @ts-ignore
-          // normalScale={[12.2, 12.2]}
         />
-      </Cities>
+      </City>
 
       <Particles convergeTo={spherePos} />
       <AmbientSound position={[0, 0, 0]} />

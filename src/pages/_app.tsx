@@ -6,7 +6,7 @@ import "@/styles/globals.scss";
 import { Leva } from "leva";
 import { Loading } from "@/components/dom/Loading";
 
-const Scene = dynamic(() => import("@/components/canvas/Scene"), { ssr: true });
+const Scene = dynamic(() => import("@/components/canvas/Scene"), { ssr: false });
 
 export default function App({ Component, pageProps = { title: "index" } }) {
   const ref = useRef();
@@ -22,11 +22,7 @@ export default function App({ Component, pageProps = { title: "index" } }) {
     <>
       <Header title={pageProps.title} />
       <Loading />
-      {Component?.canvas && (
-        <Scene eventSource={ref} eventPrefix="client">
-          {Component.canvas(pageProps)}
-        </Scene>
-      )}
+      <Scene eventSource={ref} />
       <Layout ref={ref}>
         <Component {...pageProps} />
       </Layout>

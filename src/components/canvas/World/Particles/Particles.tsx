@@ -17,9 +17,9 @@ export function Particles(props: Props) {
     let arr = [];
 
     for (let i = 0; i < count; i++) {
+      arr.push(Math.random() * 500 - 250);
       arr.push(Math.random() * 300 - 150);
-      arr.push(Math.random() * 200 - 100);
-      arr.push(Math.random() * 100 - 50);
+      arr.push(Math.random() * 500 - 250);
     }
 
     return new Float32Array(arr);
@@ -45,7 +45,7 @@ export function Particles(props: Props) {
 
   return (
     <Points ref={ref} positions={positions} renderOrder={15}>
-      <ParticlesMaterial uConvergeTo={convergeTo} />
+      <ParticlesMaterial uConvergeTo={convergeTo.clone().multiplyScalar(5)} />
     </Points>
   );
 }

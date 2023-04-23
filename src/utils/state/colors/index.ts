@@ -31,7 +31,6 @@ export const colorsSlice: StateCreator<State, [], [], ColorsState> = set => ({
       ["#5b1d99", "#0074b4", "#00b37c", "#fff45f", "#fc9e6d"],
       ["#865a19", "#c4b282", "#85005b", "#520647", "#0e002f"],
       ["#670d0f", "#f01945", "#f36444", "#ffce6f", "#ffe3c9"],
-      ["#295264", "#fad9a6", "#bd2f28", "#89373d", "#142433"],
     ],
     colorsLight: [
       ["#ffedbf", "#f7803c", "#f54828"],

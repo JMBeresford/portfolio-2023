@@ -3,7 +3,11 @@
   inset: 0;
   background-color: rgba(0, 0, 0, 0.99);
   z-index: 1000;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
   place-items: center;
 
   color: white;
@@ -11,7 +15,7 @@
   pointer-events: all;
   touch-action: all;
 
-  transition: opacity 0.3s ease-out 1.5s;
+  transition: opacity 0.3s ease-out 0.5s;
 
   &.done {
     opacity: 0;
@@ -19,20 +23,97 @@
     touch-action: none;
   }
 
+  .text {
+    display: flex;
+    max-width: 90%;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+
+    h1 {
+      font-size: clamp(2rem, 2rem + 1.5vw, 4rem);
+      text-transform: uppercase;
+      font-weight: 200;
+
+      animation-name: fade-in;
+      animation-delay: 0.2s;
+      animation-duration: 0.4s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: backwards;
+    }
+
+    h3 {
+      animation-name: fade-in;
+      animation-delay: 0.6s;
+      animation-duration: 0.4s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: backwards;
+      font-weight: 100;
+    }
+  }
+
   .progress {
+    margin-top: 1rem;
     display: grid;
     place-items: center;
 
+    animation-name: fade-in;
+    animation-delay: 1s;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     button {
-      position: absolute;
+      // position: absolute;
       opacity: 0;
       cursor: pointer;
       pointer-events: none;
       touch-action: none;
+
+      font-family: "Montserrat", sans-serif;
+      appearance: none;
+      border: 1px solid white;
+      outline: none;
+      color: white;
+      background-color: rgba(255, 255, 255, 0);
+      text-transform: uppercase;
+      padding: 1rem 1.5rem;
+
+      animation-name: fade-in;
+      animation-delay: 1s;
+      animation-duration: 0.4s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: backwards;
+
+      transition: background-color 0.2s ease-in-out;
+
+      &:first-of-type:hover,
+      &:first-of-type:focus {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      &:nth-of-type(2) {
+        border: none;
+        font-size: 0.8rem;
+        font-weight: 300;
+        padding: 0;
+        text-transform: lowercase;
+        text-decoration: underline;
+      }
     }
 
     h1 {
+      position: absolute;
       opacity: 1;
+
+      transition: opacity 0.2s ease-in-out;
     }
 
     &.loaded {
@@ -48,5 +129,14 @@
         touch-action: none;
       }
     }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

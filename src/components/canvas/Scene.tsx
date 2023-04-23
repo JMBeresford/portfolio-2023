@@ -2,17 +2,21 @@ import { Canvas } from "@react-three/fiber";
 import { AdaptiveEvents, Preload, Stats } from "@react-three/drei";
 import { ACESFilmicToneMapping, CineonToneMapping, Vector3 } from "three";
 import { Camera } from "./Camera";
-import { Suspense } from "react";
+import { MutableRefObject, Suspense } from "react";
 import { DepthOfField, EffectComposer, GodRays, SMAA } from "@react-three/postprocessing";
 import { World } from "./World";
 import { sphericalToCartesian } from "@/utils";
 import { useStore } from "@/utils/state";
 
-export default function Scene({ children, ...props }) {
-  const sun = useStore(s => s.sun);
+type Props = {
+  eventSource: MutableRefObject<HTMLDivElement>;
+};
+
+export default function Scene({ eventSource }: Props) {
   return (
     <Canvas
-      {...props}
+      eventSource={eventSource}
+      eventPrefix="client"
       gl={{ toneMapping: ACESFilmicToneMapping, antialias: true, logarithmicDepthBuffer: true }}
       dpr={[1, 2]}
       style={{
@@ -21,16 +25,15 @@ export default function Scene({ children, ...props }) {
         overflow: "hidden",
         zIndex: 5,
         position: "fixed",
-        top: "5vh",
+        top: "7.5vh",
         left: 0,
         right: 0,
-        height: "90%",
-        maxHeight: "90%",
+        height: "85%",
+        maxHeight: "85%",
       }}
     >
       <World />
       <Camera />
-      {children}
       <Stats className="statsPanel" />
       {/* <Suspense fallback={null}>
         <EffectComposer multisampling={4} disableNormalPass>

@@ -1,4 +1,3 @@
-import { WorkScene } from "@/components/canvas/WorkScene";
 import { WorkDetails } from "@/components/dom/WorkDetails";
 import { useStore } from "@/utils/state";
 import { useRouter } from "next/router";
@@ -14,17 +13,5 @@ export default function Work() {
     return <></>;
   }
 
-  return (
-    <>
-      <WorkDetails work={work} />
-    </>
-  );
+  return <WorkDetails work={work} />;
 }
-
-Work.canvas = function Scene() {
-  return (
-    <>
-      <WorkScene />
-    </>
-  );
-};
