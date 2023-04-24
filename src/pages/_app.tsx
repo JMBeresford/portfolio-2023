@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { Suspense, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Header } from "@/config";
 import { Layout } from "@/components/dom/Layout";
 import "@/styles/globals.scss";
@@ -21,7 +21,7 @@ export default function App({ Component, pageProps = { title: "index" } }) {
     }
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (process.env.NODE_ENV !== "production") return;
 
     router.events.on("routeChangeComplete", ga.pageview);

@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { AdaptiveEvents, Preload, Stats } from "@react-three/drei";
 import { ACESFilmicToneMapping, CineonToneMapping, Vector3 } from "three";
 import { Camera } from "./Camera";
-import { MutableRefObject, Suspense } from "react";
+import { MutableRefObject, Suspense, useEffect, useState } from "react";
 import { DepthOfField, EffectComposer, GodRays, SMAA } from "@react-three/postprocessing";
 import { World } from "./World";
 import { sphericalToCartesian } from "@/utils";
@@ -13,6 +13,14 @@ type Props = {
 };
 
 export default function Scene({ eventSource }: Props) {
+  const [debug, setDebug] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (window?.location.hash.includes("debug")) {
+      setDebug(true);
+    }
+  }, []);
+
   return (
     <Canvas
       eventSource={eventSource}
@@ -34,7 +42,7 @@ export default function Scene({ eventSource }: Props) {
     >
       <World />
       <Camera />
-      <Stats className="statsPanel" />
+      {debug && <Stats className="statsPanel" />}
       {/* <Suspense fallback={null}>
         <EffectComposer multisampling={4} disableNormalPass>
         </EffectComposer>
