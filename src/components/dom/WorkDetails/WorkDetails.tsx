@@ -38,7 +38,7 @@ export function WorkDetails(props: Props) {
               {props.work.live && (
                 <button {...hoverHandlers}>
                   <a target="_blank" rel="noreferrer" href={props.work.live}>
-                    Live
+                    Visit
                   </a>
                 </button>
               )}
