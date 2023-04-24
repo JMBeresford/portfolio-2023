@@ -1,8 +1,9 @@
 import Head from "next/head";
 
-const titleDefault = "John Beresford - Creattive Developer";
+const titleDefault = "John Beresford - Creative Developer";
 const url = "https://john-beresford.com/";
-const description = "John Beresford is a creative developer who blah blah blah.";
+const description =
+  "John M. Beresford is a multi-disciplinary designer and developer with a focus on 3D, computer graphics and web technologies.";
 const author = "John Beresford";
 
 export function Header({ title = titleDefault }) {
@@ -21,7 +22,7 @@ export function Header({ title = titleDefault }) {
       <meta name="description" content={description} />
       <meta
         name="keywords"
-        content="Software Engineer,Product Manager,Project Manager,Data Scientist,Computer Scientist"
+        content="Software Engineer,Product Manager,Project Manager,Data Scientist,Computer Scientist,webGL,THREE.js,graphics"
       />
       <meta name="robots" content="index,follow" />
       <meta name="distribution" content="web" />
@@ -40,8 +41,6 @@ export function Header({ title = titleDefault }) {
       <link rel="apple-touch-icon" sizes="32x32" href="/icons/favicon-32x32.png" />
       <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
       <link rel="manifest" href="/manifest.json" />
-      <link rel="mask-icon" color="#000000" href="/icons/safari-pinned-tab.svg" />
-      <link rel="apple-touch-startup-image" href="/startup.png" />
 
       {/* Meta Tags for HTML pages on Mobile */}
       {/* <meta name="format-detection" content="telephone=yes"/>
@@ -56,6 +55,7 @@ export function Header({ title = titleDefault }) {
         Be sure validate your Twitter card markup on the documentation site. */}
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content="@__jberesford__" />
+      <meta name="twitter:creator" content="@__jberesford__" />
     </Head>
   );
 }

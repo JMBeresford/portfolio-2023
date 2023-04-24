@@ -1,13 +1,13 @@
 {
-  "name": "react-three-next",
-  "version": "2.0.0",
+  "name": "jberesford-portfolio-2023",
+  "version": "1.0.0",
   "authors": [
-    "Renaud ROHLINGER <https://twitter.com/onirenaud>"
+    "John Beresford <jberesford@volcaus.com>"
   ],
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "dependencies": {
     "@react-spring/three": "^9.7.1",
