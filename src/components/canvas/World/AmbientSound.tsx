@@ -26,7 +26,7 @@ export function AmbientSound(props: Props) {
 
   useLayoutEffect(() => {
     if (loaded) {
-      ref.current.setVolume(0.35);
+      // ref.current.setVolume(1);
       ref.current.gain.gain.setValueAtTime(0, ref.current.context.currentTime);
 
       ref.current.play();
@@ -39,7 +39,7 @@ export function AmbientSound(props: Props) {
       const gain = ref.current.gain.gain;
 
       gain.setValueAtTime(gain.value, ref.current.context.currentTime);
-      gain.linearRampToValueAtTime(1, ref.current.context.currentTime + 2);
+      gain.linearRampToValueAtTime(0.25, ref.current.context.currentTime + 2);
     } else {
       const gain = ref.current.gain.gain;
 
