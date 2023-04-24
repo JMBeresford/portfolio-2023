@@ -32,7 +32,7 @@ export function Header({ title = titleDefault }) {
       <meta property="og:title" content={title} />
       <meta property="og:type" content="site" />
       <meta property="og:url" content={url} />
-      <meta property="og:image" content={"/icons/share.png"} />
+      <meta property="og:image" content={"https://www.john-beresford.com/icons/share.png"} />
       <meta property="og:site_name" content={title} />
       <meta property="og:description" content={description} />
 

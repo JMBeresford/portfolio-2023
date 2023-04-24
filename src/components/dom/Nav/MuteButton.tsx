@@ -11,7 +11,7 @@ export function MuteButton() {
 
   return (
     <div className={`${styles.mute} ${muted ? styles.muted : ""}`}>
-      <button {...hoverHandlers} onClick={handleClick}>
+      <button name="mute" {...hoverHandlers} onClick={handleClick}>
         <div className={styles.bar} style={{ animationDelay: "0.2s" }} />
         <div className={styles.bar} style={{ animationDelay: "0.4s" }} />
         <div className={styles.bar} style={{ animationDelay: "0.6s" }} />
