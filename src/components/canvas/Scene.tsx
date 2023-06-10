@@ -33,11 +33,7 @@ export default function Scene({ eventSource }: Props) {
         overflow: "hidden",
         zIndex: 5,
         position: "fixed",
-        top: "7.5vh",
-        left: 0,
-        right: 0,
-        height: "85%",
-        maxHeight: "85%",
+        inset: 0,
       }}
     >
       <World />

@@ -36,12 +36,12 @@ body,
   display: flex;
   justify-content: center;
 
-  padding: 7.5vh 0;
+  // padding: 7.5vh 0;
   z-index: 10;
 
   .content {
     position: relative;
-    max-height: 85vh;
+    // max-height: 85vh;
     width: min(90%, 1750px);
     overflow-y: auto;
     overflow-x: hidden;
