@@ -1,3 +1,3 @@
-# portfolio-2023
+# John Beresford's Portfolio - '23 Edition
 
-This project was bootstrapped with [`create-r3f-app`](https://github.com/utsuboco/create-r3f-app)
+View live at https://john-beresford.com
