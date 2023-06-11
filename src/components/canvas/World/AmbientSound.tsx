@@ -3,12 +3,13 @@ import { PositionalAudio } from "@react-three/drei";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { PositionalAudio as PositionalAudioType } from "three";
 
-type Props = JSX.IntrinsicElements["positionalAudio"];
+type Props = JSX.IntrinsicElements["positionalAudio"] & { startTime?: number };
 
 export function AmbientSound(props: Props) {
   const ref = useRef<PositionalAudioType>();
   const muted = useStore(s => s.muted);
   const loaded = useStore(s => s.loaded);
+  const { startTime, ...restProps } = props;
 
   const [inFocus, setInFocus] = useState<boolean>(true);
 
@@ -29,9 +30,9 @@ export function AmbientSound(props: Props) {
       // ref.current.setVolume(1);
       ref.current.gain.gain.setValueAtTime(0, ref.current.context.currentTime);
 
-      ref.current.play();
+      ref.current.play(startTime ?? 0);
     }
-  }, [loaded]);
+  }, [loaded, startTime]);
 
   useEffect(() => {
     if (!ref.current.isPlaying) return;
@@ -48,5 +49,5 @@ export function AmbientSound(props: Props) {
     }
   }, [muted, inFocus]);
 
-  return <PositionalAudio ref={ref} url="/audio/ambient.mp3" loop {...props} />;
+  return <PositionalAudio ref={ref} url="/audio/ambient.mp3" loop {...restProps} />;
 }

@@ -109,6 +109,7 @@ export function World(props: JSX.IntrinsicElements["mesh"]) {
 
       <Particles convergeTo={spherePos} />
       <AmbientSound position={[0, 0, 0]} />
+      <AmbientSound position={[0, 0, 0]} startTime={15} />
       <BoopSound />
 
       <Floor position={[0, -30, -20]}>
