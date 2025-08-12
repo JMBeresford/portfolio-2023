@@ -58,13 +58,28 @@
 
     .left {
       display: grid;
-      grid-template-columns: 1ch 1fr;
+      grid-template-columns: 2ch 1fr;
       gap: 0.75rem;
 
       h6 {
         font-size: clamp(1rem, 1vw + 1rem, 1.2rem);
         opacity: 0.5;
         font-weight: 300;
+      }
+
+      .titleText {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+
+        .badge {
+          background-color: rgba(255, 255, 255, 0.75);
+          padding: 0.25rem 0.5rem;
+          color: black;
+          font-size: 0.725rem;
+          font-weight: 500;
+          border-radius: 1rem;
+        }
       }
 
       h3 {

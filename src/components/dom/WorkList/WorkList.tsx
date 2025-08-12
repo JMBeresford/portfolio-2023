@@ -21,7 +21,11 @@ export function WorkList() {
             <div className={styles.work}>
               <div className={styles.left}>
                 <h6>{idx}</h6>
-                <h3>{work.title}</h3>
+                <div className={styles.titleText}>
+                  <h3>{work.title}</h3>
+                  {work.openSource ? <div className={styles.badge}>open source</div> : null}
+                  {work.client ? <div className={styles.badge}>client work</div> : null}
+                </div>
               </div>
               <h5>{work.year}</h5>
             </div>

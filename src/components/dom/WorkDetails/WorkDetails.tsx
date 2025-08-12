@@ -21,10 +21,12 @@ export function WorkDetails(props: Props) {
 
       <div className={`${styles.details} ${colorScheme === "dark" ? "" : styles.light}`}>
         <div className={styles.left}>
-          <div>
-            <h3>Client</h3>
-            <p>{props.work.client || "N/A"}</p>
-          </div>
+          {props.work.client ? (
+            <div>
+              <h3>Client</h3>
+              <p>{props.work.client || "N/A"}</p>
+            </div>
+          ) : null}
 
           <div>
             <h3>Role</h3>

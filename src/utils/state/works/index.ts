@@ -16,12 +16,27 @@ import deforestationDetector2 from "@/assets/img/deforestationdetector/2.jpeg";
 import deforestationDetector3 from "@/assets/img/deforestationdetector/3.jpeg";
 import deforestationDetector4 from "@/assets/img/deforestationdetector/4.jpeg";
 
+import webgpukit0 from "@/assets/img/webgpukit/0.jpeg";
+import webgpukit1 from "@/assets/img/webgpukit/1.jpeg";
+import webgpukit2 from "@/assets/img/webgpukit/2.jpeg";
+import webgpukit3 from "@/assets/img/webgpukit/3.jpeg";
+import webgpukit4 from "@/assets/img/webgpukit/4.jpeg";
+import webgpukit5 from "@/assets/img/webgpukit/5.jpeg";
+import webgpukit6 from "@/assets/img/webgpukit/6.jpeg";
+
+import retrom0 from "@/assets/img/retrom/0.png";
+import retrom1 from "@/assets/img/retrom/1.png";
+import retrom2 from "@/assets/img/retrom/2.png";
+import retrom3 from "@/assets/img/retrom/3.png";
+import retrom4 from "@/assets/img/retrom/4.png";
+
 import { StateCreator } from "zustand";
 import type { State } from "..";
 
 export type Work = {
   title: string;
-  client: string;
+  client?: string;
+  openSource?: boolean;
   role: string;
   description: string;
   images: string[];
@@ -35,9 +50,60 @@ export type WorksState = { works: { [key: string]: Work } };
 
 export const worksSlice: StateCreator<State, [], [], WorksState> = set => ({
   works: {
+    retrom: {
+      title: "Retrom",
+      openSource: true,
+      role: "Lead Developer/Designer",
+      description: `\
+Retrom is a centralized game library and collection management service that I \
+developed to streamline and enhance the experience of organizing, launching, and \
+managing games, with a particular focus on emulation. It provides both a web client, \
+desktop clients for all major operating systems, and self-hostable dedicated server.
+
+The core of Retrom includes a Tauri-based desktop client, a React web client, a robust \
+Rust-based backend service providing both HTTP and gRPC APIs, and a database with \
+embedded support for standalone scenarios. Retrom supports per-client local \
+installation management, game launching, and Steam integration. The server is designed \
+to be easily self-hosted, making it simple for users to spin up their own instance and \
+manage their game collections on their own hardware.
+`,
+      color: "#6132ac",
+      year: 2025,
+      images: [retrom0.src, retrom1.src, retrom2.src, retrom3.src, retrom4.src],
+      source: "https://github.com/JMBeresford/retrom/tree/main",
+    },
+    webgpukit: {
+      title: "WebGPU-Kit",
+      openSource: true,
+      role: "Lead Developer/Designer",
+      description: `\
+WebGPU-kit is a minimal toolkit I developed to streamline working with WebGPU for \
+both rendering and compute pipelines. My goal with this project is to provide \
+developers with a lightweight, efficient, and easy-to-use set of tools that simplify \
+the process of setting up and managing WebGPU applications.
+
+The toolkit is primarily written in TypeScript and is designed to be accessible for \
+those who want to experiment with WebGPU or integrate it into their projects without \
+dealing with unnecessary complexity. By focusing on clear abstraction and practical \
+utilities, I aim to help others explore the power of modern GPU programming on the web.
+`,
+      color: "#8899AA",
+      year: 2024,
+      images: [
+        webgpukit0.src,
+        webgpukit1.src,
+        webgpukit2.src,
+        webgpukit3.src,
+        webgpukit4.src,
+        webgpukit5.src,
+        webgpukit6.src,
+      ],
+      source: "https://github.com/JMBeresford/webgpu-kit",
+      live: "https://jmberesford.github.io/webgpu-kit/",
+    },
     deforestationDetector: {
       title: "Deforestation Detector",
-      client: "N/A",
+      openSource: true,
       role: "Lead Developer/Designer",
       description: `\
 As a group of friends passionate about making a positive impact in the world, we \
