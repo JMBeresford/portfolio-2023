@@ -6,9 +6,18 @@ import "@/styles/globals.scss";
 import { Leva } from "leva";
 import { Loading } from "@/components/dom/Loading";
 import { useRouter } from "next/router";
+import { Montserrat } from "next/font/google";
 import * as ga from "@/utils/ga";
 
 const Scene = dynamic(() => import("@/components/canvas/Scene"), { ssr: false });
+
+const montserrat = Montserrat({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-montserrat-variable",
+  subsets: ["latin", "latin-ext"],
+  preload: true,
+  display: "swap",
+});
 
 export default function App({ Component, pageProps = { title: "index" } }) {
   const ref = useRef();
@@ -33,6 +42,13 @@ export default function App({ Component, pageProps = { title: "index" } }) {
 
   return (
     <>
+      <style jsx global>{
+        /* css */ `
+          html {
+            font-family: ${montserrat.style.fontFamily};
+          }
+        `
+      }</style>
       <ga.Scripts />
       <Header title={pageProps.title} />
       <Loading />
