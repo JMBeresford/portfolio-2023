@@ -8,6 +8,7 @@ import { Loading } from "@/components/dom/Loading";
 import { useRouter } from "next/router";
 import { Montserrat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import * as ga from "@/utils/ga";
 
 const Scene = dynamic(() => import("@/components/canvas/Scene"), { ssr: false });
@@ -61,6 +62,7 @@ export default function App({ Component, pageProps = { title: "index" } }) {
       </Layout>
       <Leva hidden={!showLeva} collapsed={true} />
       <SpeedInsights />
+      <Analytics />
     </>
   );
 }
